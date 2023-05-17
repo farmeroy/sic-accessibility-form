@@ -15,7 +15,7 @@ const PhysicalAccessibility = ({
 }: PhysicalAccessibilityProps) => {
   return (
     <div className="">
-      <div className="h=0 flex-grow overflow-y-auto ">
+      <div className="">
         <CheckList section="SECTION 1" title={data.title} items={data.items} />
         <div className="flex">
           <button

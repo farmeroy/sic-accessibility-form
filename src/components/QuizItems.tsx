@@ -1,8 +1,6 @@
-import DigitalAccessibility from "./DigitalAccessibility";
-import CultureAccessibility from "./CultureAccessibility";
 import FinalScore from "./FinalScore";
-import PhysicalAccessibility from "./PhysicalAccessibility";
 import { useState } from "react";
+import Panel from "./Panel";
 
 const QuizItems = ({ sections }) => {
   const [physical, digital, culture] = sections;
@@ -13,19 +11,26 @@ const QuizItems = ({ sections }) => {
   return (
     <div className="p-6 border rounded-2xl border-1 bg-offWhite">
       {section == 1 ? (
-        <PhysicalAccessibility handleNext={handleNext} data={physical} />
+        <Panel
+          sectionNumber="SECTION 1"
+          handleNext={handleNext}
+          data={physical}
+        />
       ) : null}
       {section == 2 ? (
-        <DigitalAccessibility
+        <Panel
+          sectionNumber="SECTION 2"
           handleNext={handleNext}
           handlePrevious={handlePrevious}
           data={digital}
         />
       ) : null}
       {section == 3 ? (
-        <CultureAccessibility
+        <Panel
+          sectionNumber="SECTION 3"
           handleNext={handleNext}
           handlePrevious={handlePrevious}
+          nextButtonLabel="Get your score"
           data={culture}
         />
       ) : null}

@@ -1,4 +1,4 @@
-import CheckList, { ListItem } from "./CheckList";
+import Panel from "./Panel";
 interface DigitalAccessibilityProps {
   data: { title: string; items: ListItem[] };
   handleNext: () => void;
@@ -11,23 +11,13 @@ const CultureAccessibility = ({
   handlePrevious,
 }: DigitalAccessibilityProps) => {
   return (
-    <>
-      <CheckList section="SECTION 3" title={data.title} items={data.items} />
-      <div className="flex">
-        <button
-          onClick={handlePrevious}
-          className="p-2 border border-black rounded-lg"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          className="p-2 border border-black rounded-lg"
-        >
-          Get your score
-        </button>
-      </div>
-    </>
+    <Panel
+      data={data}
+      handleNext={handleNext}
+      handlePrevious={handlePrevious}
+      nextButtonLabel="Get your score"
+      sectionNumber="Section 3"
+    />
   );
 };
 

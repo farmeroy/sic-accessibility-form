@@ -14,17 +14,19 @@ const PhysicalAccessibility = ({
   handleNext,
 }: PhysicalAccessibilityProps) => {
   return (
-    <>
-      <CheckList section="SECTION 1" title={data.title} items={data.items} />
-      <div className="flex">
-        <button
-          onClick={handleNext}
-          className="p-2 border border-black rounded-lg"
-        >
-          Next
-        </button>
+    <div className="">
+      <div className="h=0 flex-grow overflow-y-auto ">
+        <CheckList section="SECTION 1" title={data.title} items={data.items} />
+        <div className="flex">
+          <button
+            onClick={handleNext}
+            className="p-2 border border-black rounded-lg"
+          >
+            Next
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

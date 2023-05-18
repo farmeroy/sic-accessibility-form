@@ -21,13 +21,22 @@ function App() {
   });
 
   return (
-    <div className="p-4 mx-auto max-h-vh bg-brandOrange">
-      <div className="flex items-center justify-center w-full p-6 bg-brandOrange">
-        <h1 className="text-5xl text-black uppercase ">
-          Calculate your accessibility score
-        </h1>
+    <div className="mx-auto max-h-vh bg-brandOrange">
+      <div className="bg-accentOrange">
+        <div className="flex items-center justify-between max-w-4xl py-2 mx-auto h-fit ">
+          <div className="flex-shrink w-98">
+            <h1 className="text-6xl text-offWhite">
+              Calculate your accessibility score
+            </h1>
+          </div>
+          <div className="flex-none w-64 h-64 border border-4 rounded-full text-8xl bg-brandOrange text-offWhite border-offWhite">
+            <div className="flex items-center justify-center w-full h-full">
+              <p className="">SIC</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl p-4 mx-auto">
         <QuizItems sections={sections} />
       </div>
     </div>

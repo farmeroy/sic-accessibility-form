@@ -29,7 +29,7 @@ const CheckList = ({ section, title, items }: CheckListProps) => {
 
   return (
     <fieldset>
-      <legend className="text-2xl uppercase">
+      <legend className="text-3xl uppercase text-accentBlue">
         {section}: {title}
       </legend>
       <div className="flex-col">
@@ -40,7 +40,7 @@ const CheckList = ({ section, title, items }: CheckListProps) => {
             <div key={index} className="flex items-center p-2">
               <input
                 onClick={(event) => handleChecked(event)}
-                className="p-4 rounded-sm text-accentBlue focus:ring-2 focus:ring-brandOrange"
+                className="p-6 rounded-sm text-accentBlue focus:ring-2 focus:ring-brandOrange"
                 type="checkbox"
                 name={item.label}
                 id={item.label}

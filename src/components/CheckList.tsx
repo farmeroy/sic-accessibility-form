@@ -37,7 +37,7 @@ const CheckList = ({ section, title, items }: CheckListProps) => {
             <div key={index} className="flex items-center p-2">
               <input
                 onClick={(event) => handleChecked(event)}
-                className="w-12 h-12 rounded-sm text-accentBlue focus:ring-2 focus:ring-brandOrange"
+                className="w-12 h-12 rounded-md text-accentBlue focus:ring-2 focus:ring-brandOrange"
                 type="checkbox"
                 name={item.label}
                 id={item.label}

@@ -8,6 +8,7 @@ const FinalScore = ({ sections }) => {
   });
 
   const result = results
+    // make sure the result values are ordered least to greatest
     .sort((a, b) => a.maxValue - b.maxValue)
     .find((item) => finalScore <= item.maxValue);
 

@@ -1,4 +1,5 @@
 import CheckList, { ListItem } from "./CheckList";
+import { useEffect } from "react";
 interface PanelProps {
   data: { title: string; items: ListItem[] };
   handleNext?: () => void | null;
@@ -15,6 +16,9 @@ const Panel = ({
   nextButtonLabel = "Next",
   previousButtonLabel = "Previous",
 }: PanelProps) => {
+  useEffect(() => {
+    scrollTo({ top: 10, behavior: "smooth" });
+  });
   return (
     <div>
       <CheckList

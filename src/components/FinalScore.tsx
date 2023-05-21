@@ -3,6 +3,9 @@ import { results } from "../lib/results.json";
 
 const FinalScore = ({ sections }) => {
   const [finalScore, setFinalScore] = useState(0);
+  useEffect(() => {
+    scrollTo({ top: 10, behavior: "smooth" });
+  });
 
   const result = results
     .sort((a, b) => a.maxValue - b.maxValue)

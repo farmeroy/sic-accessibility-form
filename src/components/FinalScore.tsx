@@ -11,7 +11,8 @@ const FinalScore = ({ sections }) => {
   useEffect(() => {
     let score = 0;
     for (const section of sections) {
-      const items = JSON.parse(localStorage?.getItem(section) ?? "[]");
+      console.log(section.title);
+      const items = JSON.parse(localStorage?.getItem(section.title) ?? "[]");
       for (const item of items) {
         if (item.checked == true) {
           score++;
@@ -22,14 +23,23 @@ const FinalScore = ({ sections }) => {
   }, [sections]);
 
   return (
-    <>
-      <h1>What does your accessibility score mean?</h1>
-      <div>{finalScore}</div>
-      <div>
-        <p>{result?.description}</p>
-        <div className="p-2">
-          <h1>Next Steps</h1>
-          <ul className="p-4">
+    <div className="w-full bg-offWhite rounded-xl">
+      <div className="md:flex bg-offWhite rounded-xl">
+        <div className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue">
+          <p className="text-2xl">Our accessibility score is</p>
+          <p className="text-6xl">{finalScore}</p>
+        </div>
+        <div className="p-6 text-xl bg-offWhite rounded-xl">
+          <p>{result?.description}</p>
+        </div>
+      </div>
+      <div className="p-6 bg-offWhite rounded-xl">
+        <div>
+          <h1 className="text-4xl uppercase text-accentBlue">
+            Your Next Steps
+          </h1>
+
+          <ul className="p-6 text-xl">
             {result?.nextSteps.map((item, index) => (
               <li className="list-disc" key={index}>
                 {item}
@@ -38,7 +48,7 @@ const FinalScore = ({ sections }) => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

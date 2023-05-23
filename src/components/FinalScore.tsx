@@ -15,9 +15,7 @@ const FinalScore = ({ sections }) => {
   useEffect(() => {
     let score = 0;
     for (const section of sections) {
-      console.log(section.title);
-      const items = JSON.parse(localStorage?.getItem(section.title) ?? "[]");
-      for (const item of items) {
+      for (const item of section.items) {
         if (item.checked == true) {
           score++;
         }

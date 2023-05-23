@@ -1,8 +1,13 @@
 import QuizItems from "./QuizItems";
 import { useState } from "react";
 import FinalScore from "./FinalScore";
+import { ISection } from "../App";
 
-const MainView = ({ sections }) => {
+interface MainViewProps {
+  sections: ISection[];
+}
+
+const MainView = ({ sections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
 
   console.log({ sections });

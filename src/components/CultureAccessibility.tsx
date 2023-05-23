@@ -1,3 +1,5 @@
+import { ListItem } from "./CheckList";
+
 import Panel from "./Panel";
 interface DigitalAccessibilityProps {
   data: { title: string; items: ListItem[] };

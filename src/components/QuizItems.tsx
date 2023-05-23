@@ -1,7 +1,13 @@
 import { useState } from "react";
 import Panel from "./Panel";
+import { ISection } from "../App";
 
-const QuizItems = ({ sections, setShowScore }) => {
+interface QuizItemsProps {
+  sections: ISection[];
+  setShowScore: (arg0: boolean) => void;
+}
+
+const QuizItems = ({ sections, setShowScore }: QuizItemsProps) => {
   const [physical, digital, culture] = sections;
   const [section, setSection] = useState(1);
   const handleNext = () => setSection((state) => (state += 1));

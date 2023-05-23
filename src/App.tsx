@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { sections } from "./lib/list-config.json";
 import MainView from "./components/MainView";
+import { ListItem } from "./components/CheckList";
+
+export interface ISection {
+  title: string;
+  items: ListItem[];
+}
 
 function App() {
   useEffect(() => {

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
+import { ISection } from "../App";
 
-const FinalScore = ({ sections }) => {
+interface FinalScoreProps {
+  sections: ISection[];
+}
+
+const FinalScore = ({ sections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });

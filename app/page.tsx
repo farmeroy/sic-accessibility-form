@@ -1,5 +1,9 @@
-import App from "../src/App";
+// import App from "../src/App";
+
+import { useRouter } from "next/router";
 
 export default function Page() {
-  return <App />;
+  const router = useRouter();
+  router.push("culture-accessibility");
+  // return <App />;
 }

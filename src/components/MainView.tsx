@@ -12,7 +12,6 @@ interface MainViewProps {
 const MainView = ({ sections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
 
-  console.log({ sections });
   return (
     <>
       <div className="p-2 bg-accentOrange">

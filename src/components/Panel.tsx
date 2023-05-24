@@ -1,3 +1,5 @@
+"use client";
+
 import CheckList, { ListItem } from "./CheckList";
 import { useEffect } from "react";
 interface PanelProps {

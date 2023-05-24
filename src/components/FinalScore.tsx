@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
 import { ISection } from "../App";

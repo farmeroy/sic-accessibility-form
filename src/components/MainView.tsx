@@ -9,8 +9,11 @@ interface MainViewProps {
 
 const MainView = ({ sections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({ sections });
+  };
 
-  console.log({ sections });
   return (
     <>
       <div className="p-2 bg-accentOrange">
@@ -30,11 +33,13 @@ const MainView = ({ sections }: MainViewProps) => {
         </div>
       </div>
       <div className="max-w-4xl p-4 mx-auto">
-        {showScore ? (
-          <FinalScore sections={sections} />
-        ) : (
-          <QuizItems setShowScore={setShowScore} sections={sections} />
-        )}
+        <form onSubmit={(event) => handleSubmit(event)}>
+          {showScore ? (
+            <FinalScore sections={sections} />
+          ) : (
+            <QuizItems setShowScore={setShowScore} sections={sections} />
+          )}
+        </form>
       </div>
     </>
   );

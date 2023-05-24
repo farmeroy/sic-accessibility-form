@@ -1,8 +1,3 @@
-// todo: create the physical accessibility section
-// each section should fetch its necessary check list
-// When the form is 'submited' it should update
-// a global form state (tracking the number of points)
-// and then move to the next panel
 import CheckList, { ListItem } from "./CheckList";
 interface PhysicalAccessibilityProps {
   data: { title: string; items: ListItem[] };

@@ -10,7 +10,7 @@ const CultureAccessibilityPage = () => {
     router.replace("quiz/digital");
   };
   const handleNext = () => {
-    router.push("score");
+    router.push("quiz/score");
   };
   return (
     <Panel

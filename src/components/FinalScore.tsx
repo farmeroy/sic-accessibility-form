@@ -55,6 +55,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
               </li>
             ))}
           </ul>
+          <button type="submit">Contact us</button>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ const Panel = ({
   }, []);
 
   return (
-    <div>
+    <div className="p-6">
       <CheckList
         section={sectionNumber}
         title={data.title}

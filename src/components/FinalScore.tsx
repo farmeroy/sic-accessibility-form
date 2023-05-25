@@ -22,19 +22,17 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
   useEffect(() => {
     let score = 0;
     console.log(sections);
-    for (const section of sections) {
-      for (const item of section.items) {
-        if (item.checked == true) {
-          score++;
-        }
-      }
-    }
+    sections.forEach((section) => {
+      section.items.forEach((item) => {
+        if (item.checked == true) score++;
+      });
+    });
     setFinalScore(score);
   }, [sections]);
 
   return (
-    <div className="w-full bg-offWhite rounded-xl">
-      <div className="md:flex bg-offWhite rounded-xl">
+    <>
+      <div className="md:flex ">
         <div className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue">
           <p className="text-2xl">Our accessibility score is</p>
           <p className="text-6xl">{finalScore}</p>
@@ -58,7 +56,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

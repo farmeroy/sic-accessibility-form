@@ -1,11 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { sections } from "../../../src/lib/list-config.json";
 import Panel from "../../../src/components/Panel";
+import { useContext } from "react";
+import { QuizContext } from "../../../src/lib/QuizContext";
 
 const DigitalAccessibility = () => {
   const router = useRouter();
+  const sections = useContext(QuizContext);
   const handleNext = () => {
     router.push("/quiz/culture");
   };

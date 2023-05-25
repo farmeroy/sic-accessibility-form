@@ -1,7 +1,11 @@
+"use client";
+
 import FinalScore from "../../../src/components/FinalScore";
-import { sections } from "../../../src/lib/list-config.json";
+import { useContext } from "react";
+import { QuizContext } from "../../../src/lib/QuizContext";
 
 const ScorePage = () => {
+  const sections = useContext(QuizContext);
   return <FinalScore sections={sections} />;
 };
 

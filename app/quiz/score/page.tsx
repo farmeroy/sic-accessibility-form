@@ -2,10 +2,10 @@
 
 import FinalScore from "../../../src/components/FinalScore";
 import { useContext } from "react";
-import { QuizContext } from "../../../src/lib/QuizContext";
+import { QuestionsContext } from "../../../src/lib/QuizContext";
 
 const ScorePage = () => {
-  const sections = useContext(QuizContext);
+  const sections = useContext(QuestionsContext);
   return <FinalScore sections={sections} />;
 };
 

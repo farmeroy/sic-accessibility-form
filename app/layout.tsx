@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import QuizHeader from "../src/components/QuizHeader";
-import { QuizContext } from "../src/lib/QuizContext";
 
 export const metadata: Metadata = {
   title: "SIC Accessibility Quiz",

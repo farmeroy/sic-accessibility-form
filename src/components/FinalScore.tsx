@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
-import { ISection } from "../App";
+import { ListItem } from "./CheckList";
+
+export interface ISection {
+  title: string;
+  items: ListItem[];
+}
 
 interface FinalScoreProps {
   sections: ISection[];
@@ -29,6 +34,8 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
     });
     setFinalScore(score);
   }, [sections]);
+
+  localStorage.removeItem("SICPage");
 
   return (
     <>

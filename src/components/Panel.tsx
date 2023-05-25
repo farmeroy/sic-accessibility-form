@@ -1,26 +1,50 @@
 "use client";
 
 import CheckList, { ListItem } from "./CheckList";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
+import { PageContext } from "../lib/QuizContext";
 interface PanelProps {
   data: { title: string; items: ListItem[] };
-  handleNext?: () => void | null;
-  handlePrevious?: () => void | null;
+  nextTarget?: string;
+  previousTarget?: string;
   sectionNumber: string;
   nextButtonLabel?: string | null;
   previousButtonLabel?: string | null;
 }
 const Panel = ({
   data,
-  handleNext,
-  handlePrevious,
+  nextTarget = "",
+  previousTarget = "",
   sectionNumber,
   nextButtonLabel = "Next",
   previousButtonLabel = "Previous",
 }: PanelProps) => {
+  const router = useRouter();
+  const page = useContext(PageContext);
+
+  const storedPage = localStorage.getItem("SICPage")
+    ? JSON.parse(localStorage.getItem("SICPage")).page
+    : null;
+  if (storedPage !== null) {
+    page.page = storedPage;
+    router.push(`quiz/${storedPage}`);
+  }
+
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
   }, []);
+
+  const handlePrevious = () => {
+    router.replace(`quiz/${previousTarget}`);
+    localStorage.setItem("SICPage", JSON.stringify({ page: previousTarget }));
+  };
+
+  const handleNext = () => {
+    router.push(`quiz/${nextTarget}`);
+    localStorage.setItem("SICPage", JSON.stringify({ page: nextTarget }));
+    page.page = nextTarget;
+  };
 
   return (
     <div className="p-6">
@@ -30,7 +54,7 @@ const Panel = ({
         items={data.items}
       />
       <div className="flex justify-between w-full py-2">
-        {handlePrevious ? (
+        {previousTarget ? (
           <button
             onClick={handlePrevious}
             className="w-full p-2 mx-2 text-xl text-black border border-black rounded-lg bg-offWhite"
@@ -38,7 +62,7 @@ const Panel = ({
             {previousButtonLabel}
           </button>
         ) : null}
-        {handleNext ? (
+        {nextTarget ? (
           <button
             onClick={handleNext}
             className="w-full p-2 mx-2 text-xl text-white border border-black rounded-lg bg-accentBlue"

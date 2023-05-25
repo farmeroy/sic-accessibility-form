@@ -21,6 +21,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
 
   useEffect(() => {
     let score = 0;
+    console.log(sections);
     for (const section of sections) {
       for (const item of section.items) {
         if (item.checked == true) {

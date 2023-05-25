@@ -9,10 +9,13 @@ const CultureAccessibilityPage = () => {
   const handlePrevious = () => {
     router.replace("quiz/digital");
   };
+  const handleNext = () => {
+    router.push("score");
+  };
   return (
     <Panel
       data={sections[2]}
-      // handleNext={handleNext}
+      handleNext={handleNext}
       handlePrevious={handlePrevious}
       nextButtonLabel="Get your score"
       sectionNumber="Section 3"

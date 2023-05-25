@@ -21,6 +21,8 @@ const Panel = ({
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
   }, []);
+
+  console.log({ data });
   return (
     <div>
       <CheckList

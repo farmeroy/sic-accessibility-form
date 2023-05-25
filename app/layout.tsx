@@ -14,8 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {" "}
+      <body className="bg-brandOrange">
         <div className="p-2 bg-accentOrange">
           <div className="flex items-center justify-between max-w-5xl py-2 mx-auto h-fit ">
             <div className="flex w-98">

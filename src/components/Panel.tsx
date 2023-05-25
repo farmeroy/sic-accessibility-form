@@ -20,7 +20,7 @@ const Panel = ({
 }: PanelProps) => {
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
-  });
+  }, []);
   return (
     <div>
       <CheckList

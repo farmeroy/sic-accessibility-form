@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import QuizHeader from "../src/components/QuizHeader";
+import { QuizContext } from "../src/lib/QuizContext";
 
 export const metadata: Metadata = {
   title: "SIC Accessibility Quiz",
@@ -14,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-brandOrange">
+        <QuizHeader />
+        <div className="max-w-4xl p-4 mx-auto">{children}</div>
+      </body>
     </html>
   );
 }

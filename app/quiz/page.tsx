@@ -1,5 +1,4 @@
 "use client";
-// import App from "../src/App";
 
 import { useRouter } from "next/navigation";
 

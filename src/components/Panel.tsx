@@ -20,9 +20,10 @@ const Panel = ({
 }: PanelProps) => {
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
-  });
+  }, []);
+
   return (
-    <div>
+    <div className="p-6">
       <CheckList
         section={sectionNumber}
         title={data.title}

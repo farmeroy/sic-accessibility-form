@@ -23,26 +23,16 @@ const Panel = ({
   const router = useRouter();
   const page = useContext(PageContext);
 
-  const storedPage = localStorage.getItem("SICPage")
-    ? JSON.parse(localStorage.getItem("SICPage")).page
-    : null;
-  if (storedPage !== null) {
-    page.page = storedPage;
-    router.push(`quiz/${storedPage}`);
-  }
-
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
   }, []);
 
   const handlePrevious = () => {
     router.replace(`quiz/${previousTarget}`);
-    localStorage.setItem("SICPage", JSON.stringify({ page: previousTarget }));
   };
 
   const handleNext = () => {
     router.push(`quiz/${nextTarget}`);
-    localStorage.setItem("SICPage", JSON.stringify({ page: nextTarget }));
     page.page = nextTarget;
   };
 

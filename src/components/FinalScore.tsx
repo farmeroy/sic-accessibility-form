@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { results } from "../lib/results.json";
 import { ListItem } from "./CheckList";
+import { PageContext } from "../lib/QuizContext";
 
 export interface ISection {
   title: string;
@@ -15,6 +16,9 @@ interface FinalScoreProps {
 
 const FinalScore = ({ sections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
+  const page = useContext(PageContext);
+  page.page = "score";
+
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
   });
@@ -26,7 +30,6 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
 
   useEffect(() => {
     let score = 0;
-    console.log(sections);
     sections.forEach((section) => {
       section.items.forEach((item) => {
         if (item.checked == true) score++;
@@ -34,8 +37,6 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
     });
     setFinalScore(score);
   }, [sections]);
-
-  localStorage.removeItem("SICPage");
 
   return (
     <>

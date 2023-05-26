@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import { ListItem } from "./CheckList";
+import { useState } from "react";
 
 interface CheckBoxProps {
   item: ListItem;

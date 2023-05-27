@@ -39,7 +39,16 @@ const ContactForm = ({ sections }) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (!nameIsValid || !emailIsValid || !messageIsValid) return;
+    if (!nameIsValid) {
+      nameTouchHandler();
+    }
+    if (!emailIsValid) {
+      emailTouchHandler();
+    }
+    if (!messageIsValid) {
+      messageTouchHandler();
+    }
+    if (nameHasError || emailHasError || messageHasError) return;
     console.log({ enteredName, enteredEmail, enteredMessage, sections });
   };
 

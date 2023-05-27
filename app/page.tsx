@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { PageContext } from "../src/lib/QuizContext";
 
 import { useRouter } from "next/navigation";
+import App from "../src/App";
 
 export default function Page() {
   const page = useContext(PageContext);
@@ -11,6 +12,5 @@ export default function Page() {
   });
 
   const router = useRouter();
-  router.push(`quiz/${page.page}`);
-  return <div />;
+  return <App />;
 }

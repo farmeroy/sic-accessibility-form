@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import Panel from "./Panel";
 import { ISection } from "../App";

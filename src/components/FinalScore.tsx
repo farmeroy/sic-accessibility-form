@@ -37,8 +37,8 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
   }, [sections]);
 
   return (
-    <>
-      <div className="md:flex ">
+    <div className="w-full bg-offWhite rounded-xl">
+      <div className="md:flex bg-offWhite rounded-xl">
         <div className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue">
           <p className="text-2xl">Our accessibility score is</p>
           <p className="text-6xl">{finalScore}</p>
@@ -60,7 +60,6 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
               </li>
             ))}
           </ul>
-          <button type="submit">Contact us</button>
         </div>
         {showContactForm ? (
           <div className="p-2">
@@ -82,7 +81,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

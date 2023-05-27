@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
 import { ISection } from "../App";
+import ContactForm from "./ContactForm";
 
 interface FinalScoreProps {
   sections: ISection[];
@@ -8,9 +9,10 @@ interface FinalScoreProps {
 
 const FinalScore = ({ sections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
+  const [showContactForm, setShowContactForm] = useState(false);
   useEffect(() => {
     scrollTo({ top: 10, behavior: "smooth" });
-  });
+  }, []);
 
   const result = results
     // make sure the result values are ordered least to greatest
@@ -53,8 +55,26 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
               </li>
             ))}
           </ul>
-          <button type="submit">Contact us</button>
         </div>
+        {showContactForm ? (
+          <div className="p-2">
+            <ContactForm sections={sections} />
+            <button
+              className="w-full p-2 text-xl border border-black rounded-lg"
+              onClick={() => setShowContactForm(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <button
+            className="w-full p-2 mx-2 text-xl text-white border border-black rounded-lg bg-accentBlue"
+            type="button"
+            onClick={() => setShowContactForm(true)}
+          >
+            Contact us
+          </button>
+        )}
       </div>
     </div>
   );

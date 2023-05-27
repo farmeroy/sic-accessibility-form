@@ -33,13 +33,11 @@ const MainView = ({ sections }: MainViewProps) => {
         </div>
       </div>
       <div className="max-w-4xl p-4 mx-auto">
-        <form onSubmit={(event) => handleSubmit(event)}>
-          {showScore ? (
-            <FinalScore sections={sections} />
-          ) : (
-            <QuizItems setShowScore={setShowScore} sections={sections} />
-          )}
-        </form>
+        {showScore ? (
+          <FinalScore sections={sections} />
+        ) : (
+          <QuizItems setShowScore={setShowScore} sections={sections} />
+        )}
       </div>
     </>
   );

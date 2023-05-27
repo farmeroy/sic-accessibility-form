@@ -9,10 +9,6 @@ interface MainViewProps {
 
 const MainView = ({ sections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({ sections });
-  };
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
+import { ISection } from "../../src/App";
 
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
@@ -12,7 +13,17 @@ export async function POST(req: NextRequest) {
     const testAccount = await nodemailer.createTestAccount();
 
     const data = await req.json();
-    const { name: sender, email, message, results } = data;
+    const {
+      name: sender,
+      email,
+      message,
+      results,
+    }: {
+      name: string;
+      email: string;
+      message: string;
+      results: ISection[];
+    } = data;
 
     if (!emailIsValid(email)) {
       throw new Error("Email address contains error");
@@ -24,7 +35,22 @@ export async function POST(req: NextRequest) {
       throw new Error("Quiz results are missing.");
     }
 
-    // @todo: format the results
+    const resultsHTML = `<div>
+    <div>
+    <h1>Message:</h1>
+    <p>${message}</p>
+    </div>
+    <hr></hr>
+    ${results.map(
+      (section) =>
+        `<h2>${section.title}</h2>
+        <ul>${section.items.map(
+          (item) =>
+            `<li>Quesion: ${item.content} <span style="font-weight:bold;${
+              item.checked ? "color:black" : "color:red"
+            }">Answer: ${item.checked}</span></li>`
+        )}</ul>`
+    )}</div>`;
 
     const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
@@ -40,7 +66,7 @@ export async function POST(req: NextRequest) {
       to: "kemanicataldo@gmail.com",
       subject: "Accessibility Form Submission",
       text: message,
-      html: `<b>${JSON.stringify(results)}</b>`,
+      html: resultsHTML,
     });
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>

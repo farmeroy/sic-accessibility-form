@@ -19,13 +19,9 @@ const CheckList = ({ section, title, items }: CheckListProps) => {
         {section}: {title}
       </legend>
       <div className="flex-col">
-        {
-          // todo: put each input in its own component
-          // with state that sources its value from local storage?
-          items.map((item, index) => (
-            <CheckBox item={item} key={index} />
-          ))
-        }
+        {items.map((item, index) => (
+          <CheckBox item={item} key={index} />
+        ))}
       </div>
     </fieldset>
   );

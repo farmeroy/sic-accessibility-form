@@ -1,6 +1,6 @@
 import Input from "./Input";
 import useForm from "../hooks/useForm";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 const emailInputIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
@@ -13,6 +13,8 @@ const textInputIsValid = (text: string) => {
 };
 
 const ContactForm = ({ sections }) => {
+  const [isSending, setIsSending] = useState(false);
+
   const {
     enteredValue: enteredEmail,
     hasError: emailHasError,
@@ -39,6 +41,7 @@ const ContactForm = ({ sections }) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setIsSending(true);
     if (!nameIsValid) {
       nameTouchHandler();
     }
@@ -55,26 +58,23 @@ const ContactForm = ({ sections }) => {
       message: enteredMessage,
       results: sections,
     };
-    const JSONdata = JSON.stringify(data);
 
-    // API endpoint where we send form data.
-    const endpoint = "/api";
+    try {
+      const endpoint = "/api";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
 
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
-
-    // Send the form data to our forms API on Vercel and get a response.
-    const response = await fetch(endpoint, options);
-    console.log({ response });
+      const response = await fetch(endpoint, options);
+      console.log({ response });
+    } catch (error) {
+      console.log({ error });
+    }
+    setIsSending(false);
   };
 
   const formIsInValid = messageHasError || nameHasError || emailHasError;
@@ -84,8 +84,8 @@ const ContactForm = ({ sections }) => {
       <form onSubmit={(event) => handleSubmit(event)}>
         <Input
           type="text"
-          label="Email"
-          placeholder="email"
+          label="Email Address"
+          placeholder="example@email.com"
           value={enteredEmail}
           hasError={emailHasError}
           onChange={emailChangeHandler}
@@ -114,10 +114,11 @@ const ContactForm = ({ sections }) => {
         />
         <div className="flex justify-between w-full py-2">
           <button
-            disabled={formIsInValid}
+            disabled={formIsInValid || isSending}
             className={`w-full p-2 text-xl text-white  rounded-lg bg-accentBlue ${
               formIsInValid ? "bg-gray-400" : ""
-            }`}
+            } 
+              ${isSending ? "bg-blue-300" : ""}`}
             type="submit"
           >
             Send

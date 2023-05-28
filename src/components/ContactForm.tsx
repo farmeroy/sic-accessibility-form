@@ -37,7 +37,7 @@ const ContactForm = ({ sections }) => {
     inputTouchHandler: messageTouchHandler,
   } = useForm(textInputIsValid);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!nameIsValid) {
       nameTouchHandler();
@@ -49,7 +49,32 @@ const ContactForm = ({ sections }) => {
       messageTouchHandler();
     }
     if (nameHasError || emailHasError || messageHasError) return;
-    console.log({ enteredName, enteredEmail, enteredMessage, sections });
+    const data = {
+      name: enteredName,
+      email: enteredEmail,
+      message: enteredMessage,
+      results: sections,
+    };
+    const JSONdata = JSON.stringify(data);
+
+    // API endpoint where we send form data.
+    const endpoint = "/api";
+
+    // Form the request for sending data to the server.
+    const options = {
+      // The method is POST because we are sending data.
+      method: "POST",
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Body of the request is the JSON data we created above.
+      body: JSONdata,
+    };
+
+    // Send the form data to our forms API on Vercel and get a response.
+    const response = await fetch(endpoint, options);
+    console.log({ response });
   };
 
   const formIsInValid = messageHasError || nameHasError || emailHasError;

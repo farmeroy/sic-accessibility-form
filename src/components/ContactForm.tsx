@@ -51,7 +51,10 @@ const ContactForm = ({ sections }) => {
     if (!messageIsValid) {
       messageTouchHandler();
     }
-    if (nameHasError || emailHasError || messageHasError) return;
+    if (nameHasError || emailHasError || messageHasError) {
+      setIsSending(false);
+      return;
+    }
     const data = {
       name: enteredName,
       email: enteredEmail,

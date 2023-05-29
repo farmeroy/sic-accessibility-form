@@ -6,6 +6,7 @@ import { PageContext } from "../lib/QuizContext";
 
 import { ISection } from "../App";
 import ContactForm from "./ContactForm";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 interface FinalScoreProps {
   sections: ISection[];
@@ -44,7 +45,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
           <p className="text-6xl">{finalScore}</p>
         </div>
         <div className="p-6 text-xl bg-offWhite rounded-xl">
-          <p>{result?.description}</p>
+          <ReactMarkdown>{result?.description ?? ""}</ReactMarkdown>
         </div>
       </div>
       <div className="p-6 bg-offWhite rounded-xl">
@@ -52,14 +53,18 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
           <h1 className="text-4xl uppercase text-accentBlue">
             Your Next Steps
           </h1>
-
-          <ul className="p-6 text-xl">
-            {result?.nextSteps.map((item, index) => (
-              <li className="list-disc" key={index}>
-                {item}
-              </li>
-            ))}
-          </ul>
+          <ReactMarkdown
+            components={{
+              ul: ({ node, ...props }) => (
+                <ul className="p-6 text-xl list-disc" {...props} />
+              ),
+              a: ({ node, ...props }) => (
+                <a className="underline text-accentBlue" {...props} />
+              ),
+            }}
+          >
+            {result?.nextSteps ?? ""}
+          </ReactMarkdown>
         </div>
         {showContactForm ? (
           <div className="p-2">

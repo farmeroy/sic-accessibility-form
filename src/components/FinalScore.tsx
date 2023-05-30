@@ -40,16 +40,17 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
 
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
-
     const unloadCallback = (event: BeforeUnloadEvent) => {
       event.preventDefault();
       event.returnValue = "";
       return "";
     };
     if (isFormSubmitted) {
-      // only prevent reload if the form isn't submitted
+      // remove any previously added event listener so we don't
+      // the user from leaving the page
       window.removeEventListener("beforeunload", unloadCallback);
     } else {
+      // warn the user before navigation away from the page
       window.addEventListener("beforeunload", unloadCallback);
     }
     return () => window.removeEventListener("beforeunload", unloadCallback);

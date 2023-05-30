@@ -7,6 +7,7 @@ import { results } from "../lib/results.json";
 import { ISection } from "../App";
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Confetti from "react-confetti";
 
 interface FinalScoreProps {
   sections: ISection[];
@@ -39,6 +40,13 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
 
   return (
     <div className="w-full bg-offWhite rounded-xl">
+      {isFormSubmitted ? (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+        />
+      ) : null}
       <div className="md:flex bg-offWhite rounded-xl">
         <div
           id="results"

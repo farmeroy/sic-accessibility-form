@@ -1,19 +1,33 @@
 import Input from "./Input";
 import useForm from "../hooks/useForm";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { ISection } from "../App";
 
 const emailInputIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
+    email.trim()
   );
 };
 const textInputIsValid = (text: string) => {
   return text.trim().length > 0;
 };
 
-const ContactForm = ({ sections }) => {
+interface ContactFormProps {
+  sections: ISection[];
+  onFormSubmitted: () => void;
+}
+
+const ContactForm = ({ sections, onFormSubmitted }: ContactFormProps) => {
   const [isSending, setIsSending] = useState(false);
+
+  useEffect(() => {
+    const bottomOfFormEl = document.getElementById("submit");
+    if (bottomOfFormEl) {
+      bottomOfFormEl.scrollIntoView({ behavior: "smooth" });
+    }
+    return () => scrollTo({ top: 10, behavior: "smooth" });
+  });
 
   const {
     enteredValue: enteredEmail,
@@ -41,6 +55,8 @@ const ContactForm = ({ sections }) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    // if the field isn't valid, we also make sure that it has been 'touched'
+    // to trigger the error message
     setIsSending(true);
     if (!nameIsValid) {
       nameTouchHandler();
@@ -51,6 +67,7 @@ const ContactForm = ({ sections }) => {
     if (!messageIsValid) {
       messageTouchHandler();
     }
+    // if any field hasError do not submit the form
     if (nameHasError || emailHasError || messageHasError) {
       setIsSending(false);
       return;
@@ -78,12 +95,13 @@ const ContactForm = ({ sections }) => {
       console.log({ error });
     }
     setIsSending(false);
+    onFormSubmitted();
   };
 
   const formIsInValid = messageHasError || nameHasError || emailHasError;
 
   return (
-    <div className="flex flex-col w-full">
+    <div id="contact" className="flex flex-col w-full">
       <form onSubmit={(event) => handleSubmit(event)}>
         <Input
           type="text"
@@ -117,6 +135,7 @@ const ContactForm = ({ sections }) => {
         />
         <div className="flex justify-between w-full py-2">
           <button
+            id="submit"
             disabled={formIsInValid || isSending}
             className={`w-full p-2 text-xl text-white  rounded-lg bg-accentBlue ${
               formIsInValid ? "bg-gray-400" : ""

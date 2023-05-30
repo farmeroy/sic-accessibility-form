@@ -5,7 +5,7 @@ import { ISection } from "../../src/App";
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
+    email.trim()
   );
 };
 export async function POST(req: NextRequest) {
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       },
     });
     const info = await transporter.sendMail({
-      from: `"${sender}" <${email}>`,
+      from: `"${sender.trim()}" <${email.trim()}>`,
       to: "kemanicataldo@gmail.com",
       subject: "Accessibility Form Submission",
       text: message,

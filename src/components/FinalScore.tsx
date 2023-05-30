@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
-import { PageContext } from "../lib/QuizContext";
+// import { PageContext } from "../lib/QuizContext";
 
 import { ISection } from "../App";
 import ContactForm from "./ContactForm";
@@ -14,13 +14,12 @@ interface FinalScoreProps {
 
 const FinalScore = ({ sections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
-  const page = useContext(PageContext);
-  page.page = "score";
-
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
-  useEffect(() => {
-    scrollTo({ top: 10, behavior: "smooth" });
-  }, []);
+
+  // currently not using the context
+  // const page = useContext(PageContext);
+  // page.page = "score";
 
   const result = results
     // make sure the result values are ordered least to greatest
@@ -28,6 +27,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
     .find((item) => finalScore <= item.maxValue);
 
   useEffect(() => {
+    // iterate over the quiz sections and tally up results
     let score = 0;
     sections.forEach((section) => {
       section.items.forEach((item) => {
@@ -40,7 +40,10 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
   return (
     <div className="w-full bg-offWhite rounded-xl">
       <div className="md:flex bg-offWhite rounded-xl">
-        <div className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue">
+        <div
+          id="results"
+          className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue"
+        >
           <p className="text-2xl">Our accessibility score is</p>
           <p className="text-6xl">{finalScore}</p>
         </div>
@@ -68,7 +71,13 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
         </div>
         {showContactForm ? (
           <div className="p-2">
-            <ContactForm sections={sections} />
+            <ContactForm
+              sections={sections}
+              onFormSubmitted={() => {
+                setIsFormSubmitted(true);
+                setShowContactForm(false);
+              }}
+            />
             <button
               className="w-full p-2 text-xl border border-black rounded-lg"
               onClick={() => setShowContactForm(false)}
@@ -76,7 +85,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
               Cancel
             </button>
           </div>
-        ) : (
+        ) : !isFormSubmitted ? (
           <button
             className="w-full p-2 mx-2 text-xl text-white border border-black rounded-lg bg-accentBlue"
             type="button"
@@ -84,6 +93,23 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
           >
             Contact us
           </button>
+        ) : (
+          <div className="p-2 text-xl">
+            <h2 className="text-2xl text-accentBlue">
+              Thank you for completing our quiz!
+            </h2>
+            <p>
+              We'll be getting in touch with you to discuss the next steps. In
+              the meantime, have a look at our{" "}
+              <a
+                className="underline text-accentBlue"
+                href="https://sicofficial.co.uk/"
+              >
+                homepage{" "}
+              </a>{" "}
+              for more resources{" "}
+            </p>
+          </div>
         )}
       </div>
     </div>

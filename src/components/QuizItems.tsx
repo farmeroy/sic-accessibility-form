@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Panel from "./Panel";
 import { ISection } from "../App";
 
@@ -12,6 +12,17 @@ const QuizItems = ({ sections, setShowScore }: QuizItemsProps) => {
   const [section, setSection] = useState(1);
   const handleNext = () => setSection((state) => (state += 1));
   const handlePrevious = () => setSection((state) => (state -= 1));
+  useEffect(() => {
+    // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
+    const unloadCallback = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
 
   return (
     <div className="p-6 border rounded-2xl border-1 bg-offWhite">

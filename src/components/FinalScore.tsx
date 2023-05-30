@@ -38,6 +38,23 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
     setFinalScore(score);
   }, [sections]);
 
+  useEffect(() => {
+    // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
+
+    const unloadCallback = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+    if (isFormSubmitted) {
+      // only prevent reload if the form isn't submitted
+      window.removeEventListener("beforeunload", unloadCallback);
+    } else {
+      window.addEventListener("beforeunload", unloadCallback);
+    }
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, [isFormSubmitted]);
+
   return (
     <div className="w-full bg-offWhite rounded-xl">
       {isFormSubmitted ? (

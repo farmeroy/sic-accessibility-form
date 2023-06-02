@@ -1,7 +1,6 @@
 import { sections } from "./lib/list-config.json";
 import MainView from "./components/MainView";
 import { ListItem } from "./components/CheckList";
-import { useEffect } from "react";
 
 export interface ISection {
   title: string;

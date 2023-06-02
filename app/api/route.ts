@@ -10,8 +10,6 @@ const emailIsValid = (email: string) => {
 };
 export async function POST(req: NextRequest) {
   try {
-    const testAccount = await nodemailer.createTestAccount();
-
     const data = await req.json();
     const {
       name: sender,
@@ -35,35 +33,50 @@ export async function POST(req: NextRequest) {
       throw new Error("Quiz results are missing.");
     }
 
+    let formattedResult;
+
+    try {
+      formattedResult = results.map(
+        (section) =>
+          `<h2>${section.title}</h2>
+        <ul>${section.items.map(
+          (item) =>
+            `<li>Question: ${item.content} <span style="font-weight:bold;${
+              item.checked ? "color:black" : "color:red"
+            }">Answer: ${item.checked}</span></li>`
+        )}</ul>`
+      );
+    } catch (e) {
+      console.error(e);
+      console.warn({ results });
+      formattedResult =
+        "<p style='color:red'>There was an error fetching the results</p>";
+    }
+
     const resultsHTML = `<div>
     <div>
+    <h1>From: ${sender} ${email}</h1>
     <h1>Message:</h1>
     <p>${message}</p>
     </div>
     <hr></hr>
-    ${results.map(
-      (section) =>
-        `<h2>${section.title}</h2>
-        <ul>${section.items.map(
-          (item) =>
-            `<li>Quesion: ${item.content} <span style="font-weight:bold;${
-              item.checked ? "color:black" : "color:red"
-            }">Answer: ${item.checked}</span></li>`
-        )}</ul>`
-    )}</div>`;
+    <h1>Quiz Results</h1>
+    ${formattedResult}</div>`;
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      host: "smtp.mail.yahoo.com",
+      service: "yahoo",
+      port: 465,
+      secure: true, // true for 465, false for other ports
       auth: {
-        user: testAccount.user, // generated ethereal user
-        pass: testAccount.pass, // generated ethereal password
+        user: process.env.NODEMAILER_EMAIL, // generated ethereal user
+        pass: process.env.NODEMAILER_PASSWORD, // generated ethereal password
       },
+      logger: true,
     });
     const info = await transporter.sendMail({
-      from: `"${sender.trim()}" <${email.trim()}>`,
-      to: "kemanicataldo@gmail.com",
+      from: process.env.NODEMAILER_EMAIL,
+      to: process.env.SIC_EMAIL_RECEIVER,
       subject: "Accessibility Form Submission",
       text: message,
       html: resultsHTML,
@@ -85,7 +98,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error({ error });
-    return new Response("There was an error sending your message", {
+    return new Response("There was an error sending your message.", {
       status: 500,
     });
   }

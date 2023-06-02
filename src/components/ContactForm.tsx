@@ -90,12 +90,16 @@ const ContactForm = ({ sections, onFormSubmitted }: ContactFormProps) => {
       };
 
       const response = await fetch(endpoint, options);
-      console.log({ response });
+      if (response.ok) {
+        setIsSending(false);
+        onFormSubmitted();
+      } else {
+        throw new Error();
+      }
     } catch (error) {
-      console.log({ error });
+      alert("There was an error sending your request");
+      setIsSending(false);
     }
-    setIsSending(false);
-    onFormSubmitted();
   };
 
   const formIsInValid = messageHasError || nameHasError || emailHasError;

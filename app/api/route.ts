@@ -84,7 +84,8 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    return new Response(error.message, {
+    console.error({ error });
+    return new Response("There was an error sending your message", {
       status: 500,
     });
   }

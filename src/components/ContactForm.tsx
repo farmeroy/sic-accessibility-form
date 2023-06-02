@@ -97,7 +97,7 @@ const ContactForm = ({ sections, onFormSubmitted }: ContactFormProps) => {
         throw new Error();
       }
     } catch (error) {
-      alert("There was an error sending your request");
+      alert("There was an error sending your message.");
       setIsSending(false);
     }
   };

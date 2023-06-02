@@ -1,3 +1,4 @@
+"use client";
 import QuizItems from "./QuizItems";
 import { useState } from "react";
 import FinalScore from "./FinalScore";

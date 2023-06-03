@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
-// import { PageContext } from "../lib/QuizContext";
 
 import { ISection } from "../../app/page";
 import ContactForm from "./ContactForm";
@@ -17,10 +16,6 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
-
-  // currently not using the context
-  // const page = useContext(PageContext);
-  // page.page = "score";
 
   const result = results
     // make sure the result values are ordered least to greatest

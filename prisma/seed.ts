@@ -73,6 +73,120 @@ async function main() {
       },
     },
   });
+  await prisma.quizSection.create({
+    data: {
+      title: "Digital Accessibility",
+      items: {
+        createMany: {
+          data: [
+            {
+              content:
+                "We have an accessibility statement on our website which clearly explains how we can cater to a variety of needs.",
+              label: "accessibility statement",
+            },
+            {
+              content:
+                "Our marketing and social media content is accessible (e.g. ‘camel case’ hashtags, image descriptions, subtitled videos).",
+              label: "social media",
+            },
+            {
+              content:
+                "People can contact our business in different ways (e.g. phone, email, live chat, text or WhatsApp message).",
+              label: "contact",
+              checked: false,
+            },
+            {
+              content:
+                "We use accessibility checkers on all web pages and documents created for customers and employees.",
+              label: "accessibility checkers",
+            },
+            {
+              content:
+                "We provide assistive technologies for our employees (e.g. screen readers, closed captions for online meetings).",
+              label: "assistive technologies",
+            },
+            {
+              content:
+                "We have an inclusive customer journey and the experience of purchasing from / working with us is the same for disabled and non-disabled people.",
+              label: "customer journey",
+            },
+            {
+              content:
+                "All internal and external company documents are readable by a screen reader, including job adverts.",
+              label: "screen reader",
+            },
+            {
+              content:
+                "We provide an online attendance option for all our physical meetings and events.",
+              label: "online attendance",
+            },
+            {
+              content:
+                "Our job application process enables alternative methods of application and interview (e.g. video and audio, sign language interpreters).",
+              label: "job application process",
+            },
+            {
+              content:
+                "All images and PDFs on our intranet and external website are readable via screen reader.",
+              label: "images-pdfs",
+            },
+            {
+              content:
+                "We subtitle or close caption all internal and external video and audio content.",
+              label: "close captioning",
+            },
+          ],
+        },
+      },
+    },
+  });
+
+  await prisma.quizSection.create({
+    data: {
+      title: "Accessible Culture",
+      items: {
+        createMany: {
+          data: [
+            {
+              content:
+                "We provide all our staff with training in working with their disabled and neurodiverse colleagues.",
+              label: "staff training",
+            },
+            {
+              content:
+                "We provide our managers with training in managing disabled and neurodiverse team members with empathy.",
+              label: "management training",
+            },
+            {
+              content:
+                "We have a well-being and mental health policy for employees.",
+              label: "mental health",
+            },
+            {
+              content:
+                "We use case studies, marketing materials and imagery that reflect our diverse society.",
+              label: "case studies and marketing",
+            },
+            {
+              content:
+                "We actively recruit team members with diverse needs and levels of ability.",
+              label: "recruiting",
+            },
+            {
+              content:
+                "Our employees (including our leadership team) represent and reflect our diverse society.",
+              label: "diverse team",
+            },
+            {
+              content:
+                "We have a non-biased job application process.We have a non-biased job application process.",
+              label: "job application process",
+            },
+          ],
+        },
+      },
+    },
+  });
 }
 
 main()

@@ -10,10 +10,10 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Confetti from "react-confetti";
 
 interface FinalScoreProps {
-  sections: ISection[];
+  quizSections: ISection[];
 }
 
-const FinalScore = ({ sections }: FinalScoreProps) => {
+const FinalScore = ({ quizSections }: FinalScoreProps) => {
   const [finalScore, setFinalScore] = useState(0);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -28,15 +28,15 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
     .find((item) => finalScore <= item.maxValue);
 
   useEffect(() => {
-    // iterate over the quiz sections and tally up results
+    // iterate over the quiz quizSections and tally up results
     let score = 0;
-    sections.forEach((section) => {
+    quizSections.forEach((section) => {
       section.items.forEach((item) => {
         if (item.checked == true) score++;
       });
     });
     setFinalScore(score);
-  }, [sections]);
+  }, [quizSections]);
 
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
@@ -98,7 +98,7 @@ const FinalScore = ({ sections }: FinalScoreProps) => {
         {showContactForm ? (
           <div className="p-2">
             <ContactForm
-              sections={sections}
+              quizSections={quizSections}
               onFormSubmitted={() => {
                 setIsFormSubmitted(true);
                 setShowContactForm(false);

@@ -14,11 +14,11 @@ const textInputIsValid = (text: string) => {
 };
 
 interface ContactFormProps {
-  sections: ISection[];
+  quizSections: ISection[];
   onFormSubmitted: () => void;
 }
 
-const ContactForm = ({ sections, onFormSubmitted }: ContactFormProps) => {
+const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
   const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const ContactForm = ({ sections, onFormSubmitted }: ContactFormProps) => {
       name: enteredName,
       email: enteredEmail,
       message: enteredMessage,
-      results: sections,
+      results: quizSections,
     };
 
     try {

@@ -3,12 +3,12 @@ import Panel from "./Panel";
 import { ISection } from "../../app/page";
 
 interface QuizItemsProps {
-  sections: ISection[];
+  quizSections: ISection[];
   setShowScore: (arg0: boolean) => void;
 }
 
-const QuizItems = ({ sections, setShowScore }: QuizItemsProps) => {
-  const [physical, digital, culture] = sections;
+const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
+  const [physical, digital, culture] = quizSections;
   const [section, setSection] = useState(1);
   const handleNext = () => setSection((state) => (state += 1));
   const handlePrevious = () => setSection((state) => (state -= 1));

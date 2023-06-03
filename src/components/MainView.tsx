@@ -5,10 +5,10 @@ import FinalScore from "./FinalScore";
 import { ISection } from "../../app/page";
 
 interface MainViewProps {
-  sections: ISection[];
+  quizSections: ISection[];
 }
 
-const MainView = ({ sections }: MainViewProps) => {
+const MainView = ({ quizSections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
 
   return (
@@ -31,9 +31,9 @@ const MainView = ({ sections }: MainViewProps) => {
       </div>
       <div className="max-w-4xl p-4 mx-auto">
         {showScore ? (
-          <FinalScore sections={sections} />
+          <FinalScore quizSections={quizSections} />
         ) : (
-          <QuizItems setShowScore={setShowScore} sections={sections} />
+          <QuizItems setShowScore={setShowScore} quizSections={quizSections} />
         )}
       </div>
     </>

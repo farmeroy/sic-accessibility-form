@@ -1,4 +1,4 @@
-import { sections } from "../src/lib/list-config.json";
+import { quizSections } from "../src/lib/list-config.json";
 import MainView from "../src/components/MainView";
 import { ListItem } from "../src/components/CheckList";
 
@@ -8,7 +8,7 @@ export interface ISection {
 }
 
 function App() {
-  return <MainView sections={sections} />;
+  return <MainView quizSections={quizSections} />;
 }
 
 export default App;

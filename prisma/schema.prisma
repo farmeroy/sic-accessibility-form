@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model QuizSection {
+  id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  uuid           String            @default(uuid())
+  items          QuizSectionItem[]
+  title          String
+  // quizSections   quizSections?     @relation(fields: [quizSectionsId], references: [id])
+  quizSectionsId String?           @db.ObjectId
+}
+
+model QuizSectionItem {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  uuid          String       @default(uuid())
+  checked       Boolean      @default(false)
+  content       String
+  label         String
+  QuizSection   QuizSection? @relation(fields: [quizSectionId], references: [id])
+  quizSectionId String?      @db.ObjectId
+}
+
+// model quizSections {
+//   id           String        @id @default(auto()) @map("_id") @db.ObjectId
+//   uuid         String        @default(uuid())
+//   quizSections QuizSection[]
+// }

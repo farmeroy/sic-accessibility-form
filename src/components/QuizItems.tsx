@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Panel from "./Panel";
-import { ISection } from "../App";
+import { ISection } from "../../app/page";
 
 interface QuizItemsProps {
   sections: ISection[];

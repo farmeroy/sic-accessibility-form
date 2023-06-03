@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
-import { ISection } from "../../src/App";
+import { ISection } from "../../app/page";
 
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
 // import { PageContext } from "../lib/QuizContext";
 
-import { ISection } from "../App";
+import { ISection } from "../../app/page";
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Confetti from "react-confetti";

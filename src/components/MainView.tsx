@@ -1,7 +1,8 @@
+"use client";
 import QuizItems from "./QuizItems";
 import { useState } from "react";
 import FinalScore from "./FinalScore";
-import { ISection } from "../App";
+import { ISection } from "../../app/page";
 
 interface MainViewProps {
   sections: ISection[];

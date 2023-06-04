@@ -1,14 +1,36 @@
-import { sections } from "../../src/lib/list-config.json";
+"use client";
+
+import { useEffect, useState } from "react";
+import { ISection } from "../page";
 
 const AdminView = () => {
-  const quizSections = sections;
+  const [quizSections, setQuizsections] = useState<null | ISection[]>(null);
+  const getQuizData = async () => {
+    const result = await fetch("/api/admin/quiz");
+    return result.json();
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    getQuizData().then((result) => {
+      console.log({ result });
+      if (!ignore) {
+        setQuizsections(result.data);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  if (!quizSections) return <div />;
   return (
-    <div className="p-6 m-8 rounded-lg bg-offWhite">
+    <ul className="p-6 m-8 list-disc rounded-lg bg-offWhite">
       {quizSections.map((section) => (
-        <>
+        <li key={section.uuid}>
           <h1>{section.title}</h1>
           <details>
-            <summary>Section Items:</summary>
+            <summary className="hover:cursor-pointer">Section Items:</summary>
             <ol className="p-4">
               {section.items.map((item) => (
                 <ol>
@@ -33,9 +55,9 @@ const AdminView = () => {
               ))}
             </ol>
           </details>
-        </>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

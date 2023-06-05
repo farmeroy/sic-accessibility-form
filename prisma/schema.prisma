@@ -9,15 +9,16 @@ datasource db {
 
 model QuizSection {
   id             String            @id @default(auto()) @map("_id") @db.ObjectId
-  uuid           String            @default(uuid())
+  uuid           String            @unique @default(uuid())
   items          QuizSectionItem[]
   title          String
   quizSectionsId String?           @db.ObjectId
 }
 
+// change to question? 
 model QuizSectionItem {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  uuid          String       @default(uuid())
+  uuid          String       @unique() @default(uuid())  
   checked       Boolean      @default(false)
   content       String
   label         String

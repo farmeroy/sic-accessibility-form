@@ -6,7 +6,6 @@ import { results } from "../lib/results.json";
 import { ISection } from "../../app/page";
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import Confetti from "react-confetti";
 
 interface FinalScoreProps {
   quizSections: ISection[];
@@ -32,7 +31,6 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
     });
     setFinalScore(score);
   }, [quizSections]);
-
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
     const unloadCallback = (event: BeforeUnloadEvent) => {
@@ -53,13 +51,6 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
 
   return (
     <div className="w-full bg-offWhite rounded-xl">
-      {isFormSubmitted ? (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          recycle={false}
-        />
-      ) : null}
       <div className="md:flex bg-offWhite rounded-xl">
         <div
           id="results"
@@ -116,19 +107,27 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
           </button>
         ) : (
           <div className="p-2 text-xl">
-            <h2 className="text-2xl text-accentBlue">
-              Thank you for completing our quiz!
+            <h2 className="text-3xl text-accentBlue">
+              Thanks for getting in touch
             </h2>
             <p>
-              We'll be getting in touch with you to discuss the next steps. In
-              the meantime, have a look at our{" "}
+              A member of the SIC team will be in touch within 5 working days.
+            </p>
+            <p>
+              Ready to continue your journey? Check out the SIC website{" "}
               <a
                 className="underline text-accentBlue"
                 href="https://sicofficial.co.uk/"
               >
-                homepage{" "}
+                sicofficial.co.uk
               </a>{" "}
-              for more resources{" "}
+              and make sure to follow us on{" "}
+              <a
+                className="underline text-accentBlue"
+                href="https://www.linkedin.com/company/sic-official/"
+              >
+                LinkedIn
+              </a>
             </p>
           </div>
         )}

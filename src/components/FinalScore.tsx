@@ -107,19 +107,27 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
           </button>
         ) : (
           <div className="p-2 text-xl">
-            <h2 className="text-2xl text-accentBlue">
-              Thank you for completing our quiz!
+            <h2 className="text-3xl text-accentBlue">
+              Thanks for getting in touch
             </h2>
             <p>
-              We'll be getting in touch with you to discuss the next steps. In
-              the meantime, have a look at our{" "}
+              A member of the SIC team will be in touch within 5 working days.
+            </p>
+            <p>
+              Ready to continue your journey? Check out the SIC website{" "}
               <a
                 className="underline text-accentBlue"
                 href="https://sicofficial.co.uk/"
               >
-                homepage{" "}
+                sicofficial.co.uk
               </a>{" "}
-              for more resources{" "}
+              and make sure to follow us on{" "}
+              <a
+                className="underline text-accentBlue"
+                href="https://www.linkedin.com/company/sic-official/"
+              >
+                LinkedIn
+              </a>
             </p>
           </div>
         )}

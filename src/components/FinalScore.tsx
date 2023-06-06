@@ -6,7 +6,6 @@ import { results } from "../lib/results.json";
 import { ISection } from "../../app/page";
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import Confetti from "react-confetti";
 
 interface FinalScoreProps {
   quizSections: ISection[];
@@ -32,7 +31,6 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
     });
     setFinalScore(score);
   }, [quizSections]);
-
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
     const unloadCallback = (event: BeforeUnloadEvent) => {
@@ -53,13 +51,6 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
 
   return (
     <div className="w-full bg-offWhite rounded-xl">
-      {isFormSubmitted ? (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          recycle={false}
-        />
-      ) : null}
       <div className="md:flex bg-offWhite rounded-xl">
         <div
           id="results"

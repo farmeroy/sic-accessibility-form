@@ -15,8 +15,8 @@ export async function PUT(req: NextRequest) {
     const data = await prisma.quizSectionItem.update({
       where: { uuid },
       data: {
-        ...(label && { label: label }),
-        ...(content && { content: content }),
+        ...(label && { label: label.trim() }),
+        ...(content && { content: content.trim() }),
       },
     });
     return NextResponse.json({ data });

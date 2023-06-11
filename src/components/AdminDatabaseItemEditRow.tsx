@@ -5,12 +5,16 @@ interface AdminDatabaseItemEditRowProps {
   label: string;
   content: string;
   onConfirmUpdate: () => void;
+  uuid: string;
+  dataField: string;
 }
 
 const AdminDatabaseItemEditRow = ({
   label,
   content,
   onConfirmUpdate,
+  uuid,
+  dataField,
 }: AdminDatabaseItemEditRowProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(content);
@@ -21,7 +25,12 @@ const AdminDatabaseItemEditRow = ({
         title={`Edit ${label}`}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        onConfirm={onConfirmUpdate}
+        onConfirm={() =>
+          onConfirmUpdate({
+            uuid,
+            [dataField]: value,
+          })
+        }
       >
         <textarea
           required

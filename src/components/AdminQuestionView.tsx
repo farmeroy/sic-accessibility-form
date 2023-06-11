@@ -7,7 +7,7 @@ const AdminQuestionView = ({ item }) => {
     label?: string;
   }) => {
     try {
-      console.log();
+      console.log({ data });
       const result = await fetch("/api/admin/quiz/questions", {
         method: "PUT",
         headers: {
@@ -27,21 +27,15 @@ const AdminQuestionView = ({ item }) => {
         <AdminDatabaseItemEditRow
           label="Question Label"
           content={item.label}
-          onConfirmUpdate={() =>
-            updateDatabaseItem({
-              uuid: item.uuid,
-              label: item.label,
-            })
-          }
+          uuid={item.uuid}
+          dataField="label"
+          onConfirmUpdate={updateDatabaseItem}
         />
         <AdminDatabaseItemEditRow
           label="Question Content"
-          onConfirmUpdate={() =>
-            updateDatabaseItem({
-              uuid: item.uuid,
-              content: item.content,
-            })
-          }
+          dataField="content"
+          uuid={item.uuid}
+          onConfirmUpdate={updateDatabaseItem}
           content={item.content}
         />
         <hr />

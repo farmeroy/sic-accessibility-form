@@ -2,11 +2,15 @@
 
 ## Roadmap for Admin page
 - [o] Create basic web traffic analytics
-  - [X] send a visit to database
-  - [ ] visualize visits
-- [o] Quiz results analytics:
-  - [X] Send quiz results to database
-  - [ ] Create data visualization page
+  - [X] visits
+    - [X] send a visit to database
+    - [ ] visualize visits
+  - [o] Quiz results analytics:
+    - [X] Send quiz results to database
+    - [ ] Create data visualization page
+  - [ ] Contact form submits
+    - [ ] send contact submitted to database
+    - [ ] visualize submissions
 - [ ] Simple CMS
   - [ ] Updating questions:
     - [ ] create dynamic route to update label or content

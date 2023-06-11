@@ -1,9 +1,11 @@
 # SIC Quiz to assess workplace accessibility
 
-## Roadmap
-- [ ] Create basic web traffic analytics
-- [ ] Quiz results analytics:
-  - [ ] Send quiz results to database
+## Roadmap for Admin page
+- [o] Create basic web traffic analytics
+  - [X] send a visit to database
+  - [ ] visualize visits
+- [o] Quiz results analytics:
+  - [X] Send quiz results to database
   - [ ] Create data visualization page
 - [ ] Simple CMS
   - [ ] Updating questions:

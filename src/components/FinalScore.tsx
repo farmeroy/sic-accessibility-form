@@ -31,6 +31,7 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
     });
     setFinalScore(score);
   }, [quizSections]);
+
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
     const unloadCallback = (event: BeforeUnloadEvent) => {

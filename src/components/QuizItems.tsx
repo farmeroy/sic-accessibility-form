@@ -24,6 +24,16 @@ const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
 
+  const sendResults = async () => {
+    console.log({ quizSections });
+    const result = await fetch("/api/analytics/results", {
+      method: "POST",
+      body: JSON.stringify({ results: quizSections }),
+      headers: { "Content-Type": "application/json" },
+    });
+    return result.json();
+  };
+
   return (
     <div className="p-6 border rounded-2xl border-1 bg-offWhite">
       {section == 1 ? (
@@ -44,7 +54,10 @@ const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
       {section == 3 ? (
         <Panel
           sectionNumber="SECTION 3"
-          handleNext={() => setShowScore(true)}
+          handleNext={async () => {
+            await sendResults();
+            setShowScore(true);
+          }}
           handlePrevious={handlePrevious}
           nextButtonLabel="Get your score"
           data={culture}

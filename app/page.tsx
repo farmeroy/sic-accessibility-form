@@ -16,6 +16,25 @@ function App() {
     setQuizSections(data);
   }, [setQuizSections]);
 
+  const createVisitor = async () => {
+    const result = await fetch("/api/analytics/visitor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+    return result.json();
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    if (!ignore) {
+      createVisitor();
+    }
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   return quizSections ? <MainView quizSections={quizSections} /> : <div />;
 }
 

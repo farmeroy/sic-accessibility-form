@@ -30,14 +30,14 @@ model Visitor {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
   uuid          String       @default(uuid())
   date          DateTime     @default(now())
-  metadata      Json         
+  metadata      Json?         
 }
 
 model CompletedQuiz {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
   uuid          String       @default(uuid())
   date          DateTime     @default(now())
-  results       Json?
+  results       Json
 }
 
 model ContactSubmitted {

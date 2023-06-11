@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ISection } from "../page";
+import AdminQuestionView from "@/components/AdminQuestionView";
 
 const AdminView = () => {
   const [quizSections, setQuizsections] = useState<null | ISection[]>(null);
@@ -31,27 +32,9 @@ const AdminView = () => {
           <h1>{section.title}</h1>
           <details>
             <summary className="hover:cursor-pointer">Section Items:</summary>
-            <ol className="p-4">
+            <ol className="w-full p-4">
               {section.items.map((item) => (
-                <ol>
-                  <li className="p-2 list-disc">
-                    <div className="flex p-2 rounded-lg w-96">
-                      <button className="p-1 mx-2 text-xs border border-gray-400 rounded-lg hover:bg-gray-200 ">
-                        Edit
-                      </button>
-                      <h3 className="mr-2 font-bold">Item Label:</h3>
-                      <p>"{item.label}"</p>
-                    </div>
-                    <div className="flex p-2 rounded-lg w-fit">
-                      <button className="p-1 mx-2 text-xs border border-gray-400 rounded-lg hover:bg-gray-200 ">
-                        Edit
-                      </button>
-                      <h3 className="mr-2 font-bold">Item Content:</h3>{" "}
-                      <p>"{item.content}"</p>
-                    </div>
-                    <hr />
-                  </li>
-                </ol>
+                <AdminQuestionView item={item} />
               ))}
             </ol>
           </details>

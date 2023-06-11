@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../../../../../src/lib/db";
+import { prisma } from "@/lib/db";
 
 interface UpdateQuestionArgs {
   uuid: string;
@@ -9,6 +9,7 @@ interface UpdateQuestionArgs {
 
 export async function PUT(req: NextRequest) {
   const { uuid, content, label }: UpdateQuestionArgs = await req.json();
+  console.log("request", { uuid, content, label });
 
   try {
     const data = await prisma.quizSectionItem.update({

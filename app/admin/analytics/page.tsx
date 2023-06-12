@@ -1,3 +1,5 @@
+import VisitorChart from "@/components/VisitorChart";
+
 const getVisits = async () => {
   const res = await fetch("http://localhost:3000/api/analytics/visits");
   if (!res.ok) throw new Error("Failed to fetch visits");
@@ -22,11 +24,17 @@ const DashboardView = async () => {
   const contacts = await getContacts().then((result) => result.data);
 
   return (
-    <>
-      <div>{JSON.stringify(visits)}</div>
-      <div>{JSON.stringify(quizResults)}</div>
-      <div>{JSON.stringify(contacts)}</div>
-    </>
+    <div>
+      <h1>Analytics</h1>
+      <div className="w-full p-6 h-96 bg-offWhite">
+        <h1>Site Visits vs. Submitted Quizes vs. Submitted Contact Forms</h1>
+        <VisitorChart
+          visits={visits}
+          quizResults={quizResults}
+          contacts={contacts}
+        />
+      </div>
+    </div>
   );
 };
 

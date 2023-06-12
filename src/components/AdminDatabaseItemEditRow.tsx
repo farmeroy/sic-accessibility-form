@@ -1,3 +1,5 @@
+"use client";
+
 import ModalWrapper from "./ModalWrapper";
 import { useState } from "react";
 

@@ -14,3 +14,16 @@ export async function POST(req: NextRequest) {
     console.error({ e });
   }
 }
+
+export async function GET() {
+  try {
+    const data = await prisma.visitor.findMany({
+      select: {
+        date: true,
+      },
+    });
+    return NextResponse.json({ data });
+  } catch (error) {
+    console.error({ error });
+  }
+}

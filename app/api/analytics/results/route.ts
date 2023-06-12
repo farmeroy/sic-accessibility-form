@@ -14,3 +14,18 @@ export async function POST(req: NextRequest) {
     console.error({ e });
   }
 }
+
+export async function GET() {
+  try {
+    const data = await prisma.completedQuiz.findMany({
+      select: {
+        uuid: true,
+        date: true,
+        results: true,
+      },
+    });
+    return NextResponse.json({ data });
+  } catch (error) {
+    console.error({ error });
+  }
+}

@@ -17,7 +17,7 @@ function App() {
   }, [setQuizSections]);
 
   const createVisitor = async () => {
-    const result = await fetch("/api/analytics/visitor", {
+    const result = await fetch("/api/analytics/visits", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),

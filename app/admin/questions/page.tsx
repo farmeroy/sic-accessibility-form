@@ -1,30 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { ISection } from "../page";
 import AdminQuestionView from "@/components/AdminQuestionView";
 
-const AdminView = () => {
-  const [quizSections, setQuizsections] = useState<null | ISection[]>(null);
-  const getQuizData = async () => {
-    const result = await fetch("/api/admin/quiz");
-    return result.json();
-  };
+const getQuizData = async () => {
+  const res = await fetch("http://localhost:3000/api/admin/quiz");
+  if (!res.ok) throw new Error("Failed to fetch quiz");
+  return res.json();
+};
 
-  useEffect(() => {
-    let ignore = false;
-    getQuizData().then((result) => {
-      console.log({ result });
-      if (!ignore) {
-        setQuizsections(result.data);
-      }
-    });
-    return () => {
-      ignore = true;
-    };
-  }, []);
+const AdminView = async () => {
+  const quizSections = await getQuizData().then((result) => result.data);
 
-  if (!quizSections) return <div />;
   return (
     <ul className="p-6 m-8 list-disc rounded-lg bg-offWhite">
       {quizSections.map((section) => (

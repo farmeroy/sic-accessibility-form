@@ -27,7 +27,7 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
       bottomOfFormEl.scrollIntoView({ behavior: "smooth" });
     }
     return () => scrollTo({ top: 10, behavior: "smooth" });
-  });
+  }, []);
 
   const {
     enteredValue: enteredEmail,
@@ -91,8 +91,12 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
 
       const response = await fetch(endpoint, options);
       if (response.ok) {
-        setIsSending(false);
-        onFormSubmitted();
+        await fetch("/api/analytics/contacts", {
+          method: "POST",
+        }).then(() => {
+          setIsSending(false);
+          onFormSubmitted();
+        });
       } else {
         throw new Error();
       }

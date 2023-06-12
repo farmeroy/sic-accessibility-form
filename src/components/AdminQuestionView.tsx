@@ -1,3 +1,4 @@
+"use client";
 import AdminDatabaseItemEditRow from "@/components/AdminDatabaseItemEditRow";
 
 const AdminQuestionView = ({ item }) => {

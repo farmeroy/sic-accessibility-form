@@ -3,34 +3,23 @@
 import { useState, useEffect } from "react";
 import { results } from "../lib/results.json";
 
-import { ISection } from "../../app/page";
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { ISection } from "@/app/page";
 
 interface FinalScoreProps {
+  quizScore: number;
   quizSections: ISection[];
 }
 
-const FinalScore = ({ quizSections }: FinalScoreProps) => {
-  const [finalScore, setFinalScore] = useState(0);
+const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
 
-  const result = results
+  const result = [...results]
     // make sure the result values are ordered least to greatest
     .sort((a, b) => a.maxValue - b.maxValue)
-    .find((item) => finalScore <= item.maxValue);
-
-  useEffect(() => {
-    // iterate over the quiz quizSections and tally up results
-    let score = 0;
-    quizSections.forEach((section) => {
-      section.items.forEach((item) => {
-        if (item.checked == true) score++;
-      });
-    });
-    setFinalScore(score);
-  }, [quizSections]);
+    .find((item) => quizScore <= item.maxValue);
 
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
@@ -58,7 +47,7 @@ const FinalScore = ({ quizSections }: FinalScoreProps) => {
           className="flex-col p-8 text-center rounded-t-xl md:rounded-tr-none md:rounded-tl-xl md:rounded-br-xl text-offWhite h-fit bg-accentBlue"
         >
           <p className="text-2xl">Our accessibility score is</p>
-          <p className="text-6xl">{finalScore}</p>
+          <p className="text-6xl">{quizScore}</p>
         </div>
         <div className="p-6 text-xl bg-offWhite rounded-xl">
           <ReactMarkdown>{result?.description ?? ""}</ReactMarkdown>

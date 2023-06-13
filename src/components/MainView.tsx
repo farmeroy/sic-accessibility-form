@@ -10,6 +10,7 @@ interface MainViewProps {
 
 const MainView = ({ quizSections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
+  const [quizScore, setQuizScore] = useState(0);
 
   return (
     <>
@@ -31,9 +32,13 @@ const MainView = ({ quizSections }: MainViewProps) => {
       </div>
       <div className="max-w-4xl p-4 mx-auto">
         {showScore ? (
-          <FinalScore quizSections={quizSections} />
+          <FinalScore quizScore={quizScore} quizSections={quizSections} />
         ) : (
-          <QuizItems setShowScore={setShowScore} quizSections={quizSections} />
+          <QuizItems
+            setShowScore={setShowScore}
+            setQuizScore={setQuizScore}
+            quizSections={quizSections}
+          />
         )}
       </div>
     </>

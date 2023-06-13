@@ -8,7 +8,6 @@ const AdminQuestionView = ({ item }) => {
     label?: string;
   }) => {
     try {
-      console.log({ data });
       const result = await fetch("/api/admin/quiz/questions", {
         method: "PUT",
         headers: {

@@ -5,9 +5,14 @@ import { ISection } from "../../app/page";
 interface QuizItemsProps {
   quizSections: ISection[];
   setShowScore: (arg0: boolean) => void;
+  setQuizScore: (arg0: number) => void;
 }
 
-const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
+const QuizItems = ({
+  setQuizScore,
+  quizSections,
+  setShowScore,
+}: QuizItemsProps) => {
   const [physical, digital, culture] = quizSections;
   const [section, setSection] = useState(1);
   const handleNext = () => setSection((state) => (state += 1));
@@ -25,7 +30,6 @@ const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
   }, []);
 
   const sendResults = async () => {
-    console.log({ quizSections });
     const result = await fetch("/api/analytics/results", {
       method: "POST",
       body: JSON.stringify({ results: quizSections }),
@@ -55,8 +59,10 @@ const QuizItems = ({ quizSections, setShowScore }: QuizItemsProps) => {
         <Panel
           sectionNumber="SECTION 3"
           handleNext={async () => {
-            await sendResults();
-            setShowScore(true);
+            await sendResults().then((result) => {
+              setQuizScore(result.score);
+              setShowScore(true);
+            });
           }}
           handlePrevious={handlePrevious}
           nextButtonLabel="Get your score"

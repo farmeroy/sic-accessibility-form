@@ -56,8 +56,6 @@ const VisitorChart = ({ visits, quizResults, contacts }) => {
     contacts
   );
 
-  console.log(processedData);
-
   return (
     <ResponsiveContainer className="w-full bg-offWhite ">
       <LineChart
@@ -69,9 +67,9 @@ const VisitorChart = ({ visits, quizResults, contacts }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="visitors" stroke="red" />
-        <Line type="monotone" dataKey="completedQuizzes" stroke="black" />
-        <Line type="monotone" dataKey="contactSubmitted" />
+        <Line type="linear" dataKey="visitors" stroke="red" />
+        <Line type="linear" dataKey="completedQuizzes" stroke="black" />
+        <Line type="linear" dataKey="contactSubmitted" />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -18,30 +18,52 @@ model QuizSection {
 // change to question? 
 model QuizSectionItem {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  uuid          String       @unique() @default(uuid())  
+  uuid          String       @unique() @default(uuid())
   checked       Boolean      @default(false)
   content       String
   label         String
   QuizSection   QuizSection? @relation(fields: [quizSectionId], references: [id])
   quizSectionId String?      @db.ObjectId
+  Answer        Answer[]
+}
+
+// send a collection of answers plus date to database
+model QuizResults {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid         String   @unique() @default(uuid())
+  totalScore   Int
+  completeQuiz Json // json dump of the entire quiz in one place
+  date         DateTime @default(now())
+  answers      Answer[]
+}
+
+// answer to relate to a question
+model Answer {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  uuid              String          @unique() @default(uuid())
+  question          QuizSectionItem @relation(fields: [quizSectionItemId], references: [id])
+  answer            Boolean
+  QuizResults       QuizResults?    @relation(fields: [quizResultsId], references: [id])
+  quizResultsId     String?         @db.ObjectId
+  quizSectionItemId String          @db.ObjectId
 }
 
 model Visitor {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  uuid          String       @default(uuid())
-  date          DateTime     @default(now())
-  metadata      Json?         
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid     String   @default(uuid())
+  date     DateTime @default(now())
+  metadata Json?
 }
 
 model CompletedQuiz {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  uuid          String       @default(uuid())
-  date          DateTime     @default(now())
-  results       Json
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid    String   @default(uuid())
+  date    DateTime @default(now())
+  results Json
 }
 
 model ContactSubmitted {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  uuid          String       @default(uuid())
-  date          DateTime     @default(now())
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  uuid String   @default(uuid())
+  date DateTime @default(now())
 }

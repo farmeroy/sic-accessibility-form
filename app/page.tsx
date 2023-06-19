@@ -1,5 +1,3 @@
-"use client";
-
 import { quizSections as data } from "../src/lib/list-config.json";
 import MainView from "../src/components/MainView";
 import { ListItem } from "../src/components/CheckList";
@@ -9,12 +7,20 @@ export interface ISection {
   title: string;
   items: ListItem[];
 }
+const getQuizData = async () => {
+  const res = await fetch("http://localhost:3000/api/admin/quiz", {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Failed to fetch quiz");
+  return res.json();
+};
 
-function App() {
-  const [quizSections, setQuizSections] = useState<null | ISection[]>(null);
-  useEffect(() => {
-    setQuizSections(data);
-  }, [setQuizSections]);
+async function App() {
+  const quizSections = await getQuizData().then((result) => result.data);
+  // const [quizSections, setQuizSections] = useState<null | ISection[]>(null);
+  // useEffect(() => {
+  //   setQuizSections(data);
+  // }, [setQuizSections]);
 
   const createVisitor = async () => {
     const result = await fetch("/api/analytics/visits", {
@@ -25,17 +31,17 @@ function App() {
     return result.json();
   };
 
-  useEffect(() => {
-    let ignore = false;
-    if (!ignore) {
-      createVisitor();
-    }
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  // useEffect(() => {
+  //   let ignore = false;
+  //   if (!ignore) {
+  //     createVisitor();
+  //   }
+  //   return () => {
+  //     ignore = true;
+  //   };
+  // }, []);
 
-  return quizSections ? <MainView quizSections={quizSections} /> : <div />;
+  return <MainView quizSections={quizSections} />;
 }
 
 export default App;

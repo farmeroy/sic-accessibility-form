@@ -11,8 +11,11 @@ export async function GET() {
         items: {
           select: {
             uuid: true,
+            id: true,
             label: true,
             content: true,
+            quizSectionId: true,
+            checked: true,
           },
         },
       },

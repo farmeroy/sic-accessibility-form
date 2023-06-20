@@ -34,16 +34,16 @@ const DashboardView = async () => {
     <div>
       <h1>Analytics</h1>
       <div className="w-full p-6 h-96 bg-offWhite">
-        <h1>Site Visits vs. Submitted Quizes vs. Submitted Contact Forms</h1>
+        <h1>Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms</h1>
         <VisitorChart
           visits={visits}
-          quizResults={quizResults}
+          quizResults={quizResults.quizzes}
           contacts={contacts}
         />
       </div>
 
       <div className="w-full p-6 h-96 bg-offWhite">
-        <AnalyticsPieCartQuizResults quizResults={quizResults} />
+        <AnalyticsPieCartQuizResults quizResults={quizResults.answers} />
       </div>
     </div>
   );

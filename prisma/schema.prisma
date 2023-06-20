@@ -55,13 +55,6 @@ model Visitor {
   metadata Json?
 }
 
-model CompletedQuiz {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  uuid    String   @default(uuid())
-  date    DateTime @default(now())
-  results Json
-}
-
 model ContactSubmitted {
   id   String   @id @default(auto()) @map("_id") @db.ObjectId
   uuid String   @default(uuid())

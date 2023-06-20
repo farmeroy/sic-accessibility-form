@@ -1,6 +1,6 @@
 "use client";
 import QuizItems from "./QuizItems";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FinalScore from "./FinalScore";
 import { ISection } from "../../app/page";
 
@@ -11,6 +11,25 @@ interface MainViewProps {
 const MainView = ({ quizSections }: MainViewProps) => {
   const [showScore, setShowScore] = useState(false);
   const [quizScore, setQuizScore] = useState(0);
+
+  const createVisitor = async () => {
+    const result = await fetch("/api/analytics/visits", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+    return result.json();
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    if (!ignore) {
+      createVisitor();
+    }
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   return (
     <>

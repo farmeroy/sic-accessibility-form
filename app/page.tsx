@@ -1,7 +1,5 @@
-import { quizSections as data } from "../src/lib/list-config.json";
-import MainView from "../src/components/MainView";
-import { ListItem } from "../src/components/CheckList";
-import { useEffect, useState } from "react";
+import MainView from "@/components/MainView";
+import { ListItem } from "@/components/CheckList";
 
 export interface ISection {
   title: string;
@@ -17,29 +15,6 @@ const getQuizData = async () => {
 
 async function App() {
   const quizSections = await getQuizData().then((result) => result.data);
-  // const [quizSections, setQuizSections] = useState<null | ISection[]>(null);
-  // useEffect(() => {
-  //   setQuizSections(data);
-  // }, [setQuizSections]);
-
-  const createVisitor = async () => {
-    const result = await fetch("/api/analytics/visits", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    });
-    return result.json();
-  };
-
-  // useEffect(() => {
-  //   let ignore = false;
-  //   if (!ignore) {
-  //     createVisitor();
-  //   }
-  //   return () => {
-  //     ignore = true;
-  //   };
-  // }, []);
 
   return <MainView quizSections={quizSections} />;
 }

@@ -3,6 +3,10 @@
 import {
   Bar,
   BarChart,
+  Label,
+  Legend,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -12,7 +16,7 @@ import {
 interface Item {
   content: string;
   label: string;
-  checked: boolean;
+  Answer: { answer: boolean }[];
 }
 
 interface Section {
@@ -20,77 +24,39 @@ interface Section {
   items: Item[];
 }
 
-const AnalyticsPieCartQuizResults = ({ quizResults }) => {
-  const data: Section[][] = quizResults.map((results) => results.results);
-  function calculateAverageChecked(title: string): number {
-    const sections = data.flatMap((arr) =>
-      arr.filter((section) => section.title === title)
-    );
-    const totalChecked = sections.reduce((sum, section) => {
-      const checkedItems = section.items.filter((item) => item.checked);
-      return sum + checkedItems.length;
-    }, 0);
-
-    const averageChecked = totalChecked / sections.length;
-    return averageChecked;
-  }
-  function calculateAverageCheckedPercentage(title: string): number {
-    const sections = data.flatMap((arr) =>
-      arr.filter((section) => section.title === title)
-    );
-    const totalItems = sections.reduce(
-      (sum, section) => sum + section.items.length,
-      0
-    );
-    const totalChecked = sections.reduce((sum, section) => {
-      const checkedItems = section.items.filter((item) => item.checked);
-      return sum + checkedItems.length;
-    }, 0);
-
-    const averageCheckedPercentage = (totalChecked / totalItems) * 100;
-    return averageCheckedPercentage;
-  }
+const AnalyticsPieCartQuizResults = ({
+  quizResults,
+}: {
+  quizResults: Section[];
+}) => {
+  const processedAnswers = quizResults.flatMap((section) => ({
+    title: section.title,
+    answers: section.items.flatMap((item) => ({
+      label: item.label,
+      content: item.content,
+      true: item.Answer.filter((answer) => answer.answer == true).length,
+      false: item.Answer.filter((answer) => answer.answer == false).length,
+    })),
+  }));
 
   return (
-    <>
-      <div>
-        {JSON.stringify(calculateAverageChecked("Physical Accessibility"))}
-      </div>
-      <div>
-        {JSON.stringify(
-          calculateAverageCheckedPercentage("Physical Accessibility")
-        )}
-        %
-      </div>
-      <ResponsiveContainer className="w-full max-w-4xl bg-offWhite">
-        <BarChart
-          data={[
-            {
-              percentage: calculateAverageCheckedPercentage(
-                "Physical Accessibility"
-              ),
-              name: "Physical",
-            },
-            {
-              percentage: calculateAverageCheckedPercentage(
-                "Digital Accessibility"
-              ),
-              name: "Digital",
-            },
-            {
-              percentage:
-                calculateAverageCheckedPercentage("Accessible Culture"),
-              name: "Digital",
-            },
-          ]}
-        >
-          <Bar dataKey="percentage" fill="orange" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-        </BarChart>
-      </ResponsiveContainer>
-    </>
+    <div className="flex h-96">
+      {processedAnswers.map((section) => (
+        <div className="w-full max-w-4xl">
+          <h1>{section.title}</h1>
+          <ResponsiveContainer key={section.title} className="w-full ">
+            <BarChart data={section.answers}>
+              <Tooltip />
+              <Bar dataKey="true" fill="blue" />
+              <Bar dataKey="false" fill="red" />
+              <XAxis dataKey="content" />
+              <YAxis />
+              <Legend />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      ))}
+    </div>
   );
 };
 

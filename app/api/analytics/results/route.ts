@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
+interface IAnswer {
+  quizSectionItemId: string;
+  answer: boolean;
+}
+
 export async function POST(req: NextRequest) {
   const { results } = await req.json();
 
   let score = 0;
-  const answers = [];
+  const answers: IAnswer[] = [];
 
   // calculate the result here
   results.forEach((section) => {
@@ -23,17 +28,6 @@ export async function POST(req: NextRequest) {
     section.sectionScore = sectionScore;
   });
 
-  // results.push({ score });
-  // results.forEach((section) =>
-  //   section.items.forEach((item) => {
-  //     answers.push({
-  //       question: item.uuid,
-  //       answer: item.checked,
-  //     });
-  //   })
-  // );
-  // console.log({ answers });
-
   try {
     const quizResults = await prisma.quizResults.create({
       data: {
@@ -50,30 +44,34 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error({ error });
   }
-
-  // try {
-  //   const data = await prisma.completedQuiz.create({
-  //     data: {
-  //       results,
-  //     },
-  //   });
-  //   // return just the score or the whole object?
-  //   return NextResponse.json({ score });
-  // } catch (e) {
-  //   console.error({ e });
-  // }
 }
 
+// get all the answers for each quiz item
 export async function GET() {
   try {
-    const data = await prisma.completedQuiz.findMany({
+    const answers = await prisma.quizSection.findMany({
       select: {
-        uuid: true,
-        date: true,
-        results: true,
+        title: true,
+        items: {
+          select: {
+            label: true,
+            content: true,
+            Answer: {
+              select: {
+                answer: true,
+              },
+            },
+          },
+        },
       },
     });
-    return NextResponse.json({ data });
+    const quizzes = await prisma.quizResults.findMany({
+      select: {
+        totalScore: true,
+        date: true,
+      },
+    });
+    return NextResponse.json({ data: { answers, quizzes } });
   } catch (error) {
     console.error({ error });
   }

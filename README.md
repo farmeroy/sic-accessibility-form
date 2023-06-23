@@ -1,13 +1,13 @@
 # SIC Quiz to assess workplace accessibility
 
 ## Roadmap for Admin page
-- [O] Create basic web traffic analytics
+- [X] Create basic web traffic analytics
   - [X] visits
     - [X] send a visit to database
     - [X] visualize visits
-  - [.] Quiz results analytics:
+  - [X] Quiz results analytics:
     - [X] Send quiz results to database
-    - [ ] Create data visualization page
+    - [X] Create data visualization page
   - [X] Contact form submits
     - [X] send contact submitted to database
     - [X] visualize submissions
@@ -22,3 +22,5 @@
     - [ ] state management
 - [ ] Authentication and Authorization for Admin page
 - [ ] Quiz results data model
+- [ ] point to quiz.sicofficial.co.uk
+  - [ ] `Point quiz CNAME record to ephemeral-kelpie-f9ff28.netlify.app Log in to the account you have with your DNS provider, and add a CNAME record for quiz pointing to ephemeral-kelpie-f9ff28.netlify.app.`

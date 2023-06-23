@@ -46,7 +46,11 @@ const AnalyticsPieCartQuizResults = ({
           <h1>{section.title}</h1>
           <ResponsiveContainer key={section.title} className="w-full ">
             <BarChart data={section.answers}>
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  zIndex: 3000,
+                }}
+              />
               <Bar dataKey="true" fill="blue" />
               <Bar dataKey="false" fill="red" />
               <XAxis dataKey="content" />

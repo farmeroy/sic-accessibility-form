@@ -1,7 +1,7 @@
 import AdminQuestionView from "@/components/AdminQuestionView";
 
 const getQuizData = async () => {
-  const res = await fetch("http://localhost:3000/api/admin/quiz", {
+  const res = await fetch("http://localhost:3000/api/questions", {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch quiz");

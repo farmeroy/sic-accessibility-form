@@ -1,4 +1,5 @@
 import AdminQuestionView from "@/components/AdminQuestionView";
+import { ISection } from "src/interfaces";
 
 const getQuizData = async () => {
   const res = await fetch("http://localhost:3000/api/questions", {
@@ -9,7 +10,9 @@ const getQuizData = async () => {
 };
 
 const AdminView = async () => {
-  const quizSections = await getQuizData().then((result) => result.data);
+  const quizSections: ISection[] = await getQuizData().then(
+    (result) => result.data
+  );
 
   return (
     <ul className="p-6 m-8 list-disc rounded-lg bg-offWhite">

@@ -2,7 +2,7 @@
 import QuizItems from "./QuizItems";
 import { useState, useEffect } from "react";
 import FinalScore from "./FinalScore";
-import { ISection } from "../../app/page";
+import { ISection } from "src/interfaces";
 
 interface MainViewProps {
   quizSections: ISection[];

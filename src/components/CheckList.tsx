@@ -1,10 +1,5 @@
 import CheckBox from "./CheckBox";
-
-export interface ListItem {
-  content: string;
-  label: string;
-  checked: boolean;
-}
+import { ListItem } from "src/interfaces";
 
 interface CheckListProps {
   section: string;

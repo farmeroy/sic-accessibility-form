@@ -1,5 +1,5 @@
 "use client";
-import { ListItem } from "./CheckList";
+import { ListItem } from "src/interfaces";
 import { useState } from "react";
 
 interface CheckBoxProps {

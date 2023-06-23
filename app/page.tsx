@@ -1,10 +1,5 @@
 import MainView from "@/components/MainView";
-import { ListItem } from "@/components/CheckList";
 
-export interface ISection {
-  title: string;
-  items: ListItem[];
-}
 const getQuizData = async () => {
   const res = await fetch("http://localhost:3000/api/questions", {
     cache: "no-store",

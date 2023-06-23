@@ -3,10 +3,7 @@
 import {
   Bar,
   BarChart,
-  Label,
   Legend,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,

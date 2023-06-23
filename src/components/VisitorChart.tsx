@@ -10,6 +10,13 @@ import {
   YAxis,
 } from "recharts";
 
+interface IProcessedData {
+  date: string;
+  visitors: number;
+  completedQuizzes: number;
+  contactSubmitted: number;
+}
+
 function processDataForPreviousWeek(
   visitors,
   completedQuizzes,
@@ -20,7 +27,7 @@ function processDataForPreviousWeek(
     currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
   );
 
-  const processedData = [];
+  const processedData = [] as IProcessedData[];
 
   for (let i = 0; i <= 7; i++) {
     const currentDate = new Date(

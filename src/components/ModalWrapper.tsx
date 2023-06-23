@@ -46,7 +46,9 @@ const ModalWrapper = ({
               Cancel
             </button>
             <button
-              className="p-2 m-1 font-bold text-white border rounded hover:brightness-95 bg-accentOrange"
+              className={`p-2 m-1 font-bold text-white border rounded hover:brightness-95 bg-accentOrange ${
+                isLoading ? "disabled" : ""
+              }`}
               onClick={handleConfirm}
             >
               Confirm

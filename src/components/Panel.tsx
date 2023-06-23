@@ -1,6 +1,7 @@
 "use client";
 
-import CheckList, { ListItem } from "./CheckList";
+import CheckList from "./CheckList";
+import { ListItem } from "src/interfaces";
 import { useEffect } from "react";
 interface PanelProps {
   data: { title: string; items: ListItem[] };

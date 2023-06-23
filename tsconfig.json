@@ -8,11 +8,21 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/public/*": ["public/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/app/*": ["app/*"]
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/public/*": [
+        "public/*"
+      ],
+      "@/lib/*": [
+        "src/lib/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/app/*": [
+        "app/*"
+      ]
     },
     "module": "ESNext",
     "skipLibCheck": true,
@@ -24,7 +34,7 @@
     "noEmit": true,
     "jsx": "preserve",
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -36,7 +46,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "src",

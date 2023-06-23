@@ -1,7 +1,12 @@
 "use client";
 import AdminDatabaseItemEditRow from "@/components/AdminDatabaseItemEditRow";
+import { ListItem } from "src/interfaces";
 
-const AdminQuestionView = ({ item }) => {
+interface AdminQuestionViewProps {
+  item: ListItem;
+}
+
+const AdminQuestionView = ({ item }: AdminQuestionViewProps) => {
   const updateDatabaseItem = async (data: {
     uuid: string;
     content?: string;

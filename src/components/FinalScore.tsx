@@ -5,7 +5,7 @@ import { results } from "../lib/results.json";
 
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { ISection } from "@/app/page";
+import { ISection } from "src/interfaces";
 
 interface FinalScoreProps {
   quizScore: number;

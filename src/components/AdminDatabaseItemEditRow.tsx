@@ -6,7 +6,10 @@ import { useState } from "react";
 interface AdminDatabaseItemEditRowProps {
   label: string;
   content: string;
-  onConfirmUpdate: () => void;
+  onConfirmUpdate: (arg0: {
+    uuid: string;
+    [dataField: string]: string;
+  }) => void;
   uuid: string;
   dataField: string;
 }

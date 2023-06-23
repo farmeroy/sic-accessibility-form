@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { ISection } from "src/interfaces";
 
 interface IAnswer {
   quizSectionItemId: string;
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   const answers: IAnswer[] = [];
 
   // calculate the result here
-  results.forEach((section) => {
+  results.forEach((section: ISection) => {
     let sectionScore = 0;
     section.items.forEach((item) => {
       if (item.checked == true) {
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
   });
 
   try {
-    const quizResults = await prisma.quizResults.create({
+    await prisma.quizResults.create({
       data: {
         totalScore: score,
         completeQuiz: results,

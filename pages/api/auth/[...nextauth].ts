@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
 export const authOptions = {
-  // Configure one or more authentication providers
   providers: [
     EmailProvider({
       server: {
@@ -20,4 +19,6 @@ export const authOptions = {
   // ...add more providers here
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

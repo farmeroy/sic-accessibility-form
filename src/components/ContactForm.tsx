@@ -1,7 +1,7 @@
 import Input from "./Input";
 import useForm from "../hooks/useForm";
 import { FormEvent, useEffect, useState } from "react";
-import { ISection } from "../../app/page";
+import { ISection } from "src/interfaces";
 
 const emailInputIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181

@@ -13,7 +13,7 @@ const MainView = ({ quizSections }: MainViewProps) => {
   const [quizScore, setQuizScore] = useState(0);
 
   const createVisitor = async () => {
-    const result = await fetch("/api/analytics/visits", {
+    const result = await fetch("/api/visits", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),

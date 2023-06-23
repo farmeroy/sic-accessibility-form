@@ -1,7 +1,7 @@
-import { NextRequest } from "next/server";
-import nodemailer from "nodemailer";
-import { ISection } from "../../app/page";
+import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
+import nodemailer from "nodemailer";
+import { ISection } from "../../../app/page";
 
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
@@ -9,6 +9,7 @@ const emailIsValid = (email: string) => {
     email.trim()
   );
 };
+
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -105,5 +106,19 @@ export async function POST(req: NextRequest) {
     return new Response("There was an error sending your message.", {
       status: 500,
     });
+  }
+}
+
+export async function GET() {
+  try {
+    const data = await prisma.contactSubmitted.findMany({
+      select: {
+        uuid: true,
+        date: true,
+      },
+    });
+    return NextResponse.json({ data });
+  } catch (error) {
+    console.error({ error });
   }
 }

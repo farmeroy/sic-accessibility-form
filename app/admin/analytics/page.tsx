@@ -2,7 +2,7 @@ import AnalyticsPieCartQuizResults from "@/components/AnalyticsPieChartQuizResul
 import VisitorChart from "@/components/VisitorChart";
 
 const getVisits = async () => {
-  const res = await fetch("http://localhost:3000/api/analytics/visits", {
+  const res = await fetch("http://localhost:3000/api/visits", {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch visits");
@@ -10,7 +10,7 @@ const getVisits = async () => {
 };
 
 const getQuizResults = async () => {
-  const res = await fetch("http://localhost:3000/api/analytics/results", {
+  const res = await fetch("http://localhost:3000/api/results", {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch quiz results");
@@ -18,7 +18,7 @@ const getQuizResults = async () => {
 };
 
 const getContacts = async () => {
-  const res = await fetch("http://localhost:3000/api/analytics/contacts", {
+  const res = await fetch("http://localhost:3000/api/contacts", {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch results");

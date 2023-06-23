@@ -30,7 +30,7 @@ const QuizItems = ({
   }, []);
 
   const sendResults = async () => {
-    const result = await fetch("/api/analytics/results", {
+    const result = await fetch("/api/results", {
       method: "POST",
       body: JSON.stringify({ results: quizSections }),
       headers: { "Content-Type": "application/json" },

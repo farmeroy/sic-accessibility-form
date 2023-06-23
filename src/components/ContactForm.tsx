@@ -80,7 +80,7 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
     };
 
     try {
-      const endpoint = "/api";
+      const endpoint = "/api/contacts";
       const options = {
         method: "POST",
         headers: {
@@ -91,12 +91,8 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
 
       const response = await fetch(endpoint, options);
       if (response.ok) {
-        await fetch("/api/analytics/contacts", {
-          method: "POST",
-        }).then(() => {
-          setIsSending(false);
-          onFormSubmitted();
-        });
+        setIsSending(false);
+        onFormSubmitted();
       } else {
         throw new Error();
       }

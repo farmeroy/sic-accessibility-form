@@ -20,7 +20,16 @@ export async function GET() {
         },
       },
     });
-    return NextResponse.json({ data });
+    return new Response(JSON.stringify({ worked: true }), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://ephemeral-kelpie-f9ff28.netlify.app",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        Vary: "Origin",
+      },
+    });
   } catch (e) {
     console.error({ e });
   }

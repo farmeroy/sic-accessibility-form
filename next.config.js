@@ -4,11 +4,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/api",
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://quiz.sicofficial.co.uk",
+            value: "https://ephemeral-kelpie-f9ff28.netlify.app",
           },
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {

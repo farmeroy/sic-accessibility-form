@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
 // return all quiz sections and questions
@@ -20,7 +19,7 @@ export async function GET() {
         },
       },
     });
-    return new Response(JSON.stringify({ worked: true }), {
+    return new Response(JSON.stringify({ data }), {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin":

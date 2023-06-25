@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 // return all quiz sections and questions
 export async function GET() {
@@ -19,16 +20,7 @@ export async function GET() {
         },
       },
     });
-    return new Response(JSON.stringify({ data }), {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://ephemeral-kelpie-f9ff28.netlify.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        Vary: "Origin",
-      },
-    });
+    return NextResponse.json({ data });
   } catch (e) {
     console.error({ e });
   }

@@ -56,10 +56,10 @@ function processDataForPreviousWeek(
   return processedData;
 }
 
-const VisitorChart = ({ visits, quizResults, contacts }) => {
+const VisitorChart = ({ visits, quizResult, contacts }) => {
   const processedData = processDataForPreviousWeek(
     visits,
-    quizResults,
+    quizResult,
     contacts
   );
 

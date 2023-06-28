@@ -28,7 +28,7 @@ model QuizSectionItem {
 }
 
 // send a collection of answers plus date to database
-model QuizResults {
+model QuizResult {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   uuid         String   @unique() @default(uuid())
   totalScore   Int
@@ -43,8 +43,8 @@ model Answer {
   uuid              String          @unique() @default(uuid())
   question          QuizSectionItem @relation(fields: [quizSectionItemId], references: [id])
   answer            Boolean
-  QuizResults       QuizResults?    @relation(fields: [quizResultsId], references: [id])
-  quizResultsId     String?         @db.ObjectId
+  quizResult        QuizResult?     @relation(fields: [quizResultId], references: [id])
+  quizResultId      String?         @db.ObjectId
   quizSectionItemId String          @db.ObjectId
 }
 

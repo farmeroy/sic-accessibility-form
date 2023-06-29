@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 // return all quiz sections and questions
 export async function GET() {

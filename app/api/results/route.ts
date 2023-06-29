@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   });
 
   try {
-    await prisma.quizResults.create({
+    await prisma.quizResult.create({
       data: {
         totalScore: score,
         completeQuiz: results,
@@ -66,7 +66,7 @@ export async function GET() {
         },
       },
     });
-    const quizzes = await prisma.quizResults.findMany({
+    const quizzes = await prisma.quizResult.findMany({
       select: {
         totalScore: true,
         date: true,

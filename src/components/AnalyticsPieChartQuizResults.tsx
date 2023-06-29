@@ -22,11 +22,11 @@ interface Section {
 }
 
 const AnalyticsPieCartQuizResults = ({
-  quizResults,
+  quizResult,
 }: {
-  quizResults: Section[];
+  quizResult: Section[];
 }) => {
-  const processedAnswers = quizResults.flatMap((section) => ({
+  const processedAnswers = quizResult.flatMap((section) => ({
     title: section.title,
     answers: section.items.flatMap((item) => ({
       label: item.label,

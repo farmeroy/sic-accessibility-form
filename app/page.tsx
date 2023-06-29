@@ -1,7 +1,7 @@
 import MainView from "@/components/MainView";
 
 const getQuizData = async () => {
-  const res = await fetch("http://localhost:3000/api/questions", {
+  const res = await fetch(`${process.env.PROCESS_URL}/api/questions`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch quiz");

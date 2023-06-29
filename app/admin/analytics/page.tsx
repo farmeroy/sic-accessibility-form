@@ -43,7 +43,7 @@ const DashboardView = async () => {
       </div>
 
       <div className="w-full p-6 h-96 bg-offWhite">
-        <AnalyticsPieCartQuizResults quizResults={quizResults.answers} />
+        <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
       </div>
     </div>
   );

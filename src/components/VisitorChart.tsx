@@ -13,15 +13,11 @@ import {
 interface IProcessedData {
   date: string;
   visitors: number;
-  completedQuizzes: number;
+  quizResultsCount: number;
   contactSubmitted: number;
 }
 
-function processDataForPreviousWeek(
-  visitors,
-  completedQuizzes,
-  contactSubmitted
-) {
+function processDataForPreviousWeek(visitors, quizResults, contactSubmitted) {
   const currentDate = new Date();
   const startDateOfPreviousWeek = new Date(
     currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
@@ -38,7 +34,7 @@ function processDataForPreviousWeek(
     const visitorsCount = visitors.filter((entry) =>
       entry.date.startsWith(formattedDate)
     ).length;
-    const completedQuizzesCount = completedQuizzes.filter(
+    const quizResultsCount = quizResults.filter(
       (entry) => entry.date.slice(0, 10) === formattedDate
     ).length;
     const contactSubmittedCount = contactSubmitted.filter(
@@ -48,7 +44,7 @@ function processDataForPreviousWeek(
     processedData.push({
       date: formattedDate,
       visitors: visitorsCount,
-      completedQuizzes: completedQuizzesCount,
+      quizResultsCount: quizResultsCount,
       contactSubmitted: contactSubmittedCount,
     });
   }

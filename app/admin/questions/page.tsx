@@ -1,5 +1,9 @@
+"use client";
 import AdminQuestionView from "@/components/AdminQuestionView";
 import { ISection } from "src/interfaces";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const getQuizData = async () => {
   const res = await fetch("http://localhost:3000/api/questions", {
@@ -10,6 +14,19 @@ const getQuizData = async () => {
 };
 
 const AdminView = async () => {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    console.log({ status });
+    // this is always redirecting
+    if (status === "unauthenticated") router.replace("/admin");
+    if (status === "authenticated") router.replace("/admin/questions");
+    if (!session) router.replace("/admin");
+  }, [status, router, session]);
+
+  if (status === "loading") return <div>loading</div>;
+
   const quizSections: ISection[] = await getQuizData().then(
     (result) => result.data
   );

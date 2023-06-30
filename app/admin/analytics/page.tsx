@@ -1,5 +1,8 @@
 import AnalyticsPieCartQuizResults from "@/components/AnalyticsPieChartQuizResults";
+import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 import VisitorChart from "@/components/VisitorChart";
+import { getServerSession } from "next-auth";
+import { authOptions } from "pages/api/auth/[...nextauth]";
 
 const getVisits = async () => {
   const res = await fetch("http://localhost:3000/api/visits", {
@@ -26,6 +29,10 @@ const getContacts = async () => {
 };
 
 const DashboardView = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) return <UnauthorizedRedirect />;
+
   const visits = await getVisits().then((result) => result.data);
   const quizResults = await getQuizResults().then((result) => result.data);
   const contacts = await getContacts().then((result) => result.data);

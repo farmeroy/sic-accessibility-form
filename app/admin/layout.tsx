@@ -1,4 +1,5 @@
 "use client";
+import AdminNavBar from "@/components/AdminNavBar";
 import { SessionProvider } from "next-auth/react";
 
 export default function AdminLayout({
@@ -6,5 +7,10 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return (
+    <SessionProvider>
+      <AdminNavBar />
+      {children}
+    </SessionProvider>
+  );
 }

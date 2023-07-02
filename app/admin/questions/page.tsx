@@ -6,7 +6,7 @@ import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 
 const getQuizData = async () => {
   const res = await fetch("http://localhost:3000/api/questions", {
-    cache: "no-store",
+    next: { tags: ["questions"] },
   });
   if (!res.ok) throw new Error("Failed to fetch quiz");
   return res.json();

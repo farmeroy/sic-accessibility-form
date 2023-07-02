@@ -13,7 +13,6 @@ model QuizSection {
   items          QuizSectionItem[]
   title          String
   quizSectionsId String?           @db.ObjectId
-  lastUpdate     DateTime          @default(now())
 }
 
 // change to question? 
@@ -26,7 +25,6 @@ model QuizSectionItem {
   QuizSection   QuizSection? @relation(fields: [quizSectionId], references: [id])
   quizSectionId String?      @db.ObjectId
   Answer        Answer[]
-  lastUpdate    DateTime     @default(now())
 }
 
 // send a collection of answers plus date to database

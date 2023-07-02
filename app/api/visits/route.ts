@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 
 export async function POST(req: NextRequest) {
   const { geo } = req;
@@ -9,6 +10,7 @@ export async function POST(req: NextRequest) {
         metadata: { geo },
       },
     });
+    revalidateTag("visits");
     return NextResponse.json({ data });
   } catch (e) {
     console.error({ e });

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { ISection } from "src/interfaces";
+import { revalidateTag } from "next/cache";
 
 interface IAnswer {
   quizSectionItemId: string;
@@ -41,6 +42,7 @@ export async function POST(req: NextRequest) {
         },
       },
     });
+    revalidateTag("contacts");
     return NextResponse.json({ score });
   } catch (error) {
     console.error({ error });

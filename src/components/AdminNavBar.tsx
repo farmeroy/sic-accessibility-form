@@ -6,7 +6,9 @@ import { useState } from "react";
 export default function AdminNavBar() {
   const { data: session, status } = useSession();
   const [email, setEmail] = useState("");
-  console.log({ status });
+
+  if (status === "loading") return <div />;
+
   if (session && session.user) {
     return (
       <nav className="flex p-2">

@@ -6,7 +6,7 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 
 const getVisits = async () => {
   const res = await fetch("http://localhost:3000/api/visits", {
-    cache: "no-store",
+    next: { tags: ["visits"] },
   });
   if (!res.ok) throw new Error("Failed to fetch visits");
   return res.json();
@@ -14,7 +14,7 @@ const getVisits = async () => {
 
 const getQuizResults = async () => {
   const res = await fetch("http://localhost:3000/api/results", {
-    cache: "no-store",
+    next: { tags: ["results"] },
   });
   if (!res.ok) throw new Error("Failed to fetch quiz results");
   return res.json();
@@ -22,7 +22,7 @@ const getQuizResults = async () => {
 
 const getContacts = async () => {
   const res = await fetch("http://localhost:3000/api/contacts", {
-    cache: "no-store",
+    next: { tags: ["contacts"] },
   });
   if (!res.ok) throw new Error("Failed to fetch results");
   return res.json();

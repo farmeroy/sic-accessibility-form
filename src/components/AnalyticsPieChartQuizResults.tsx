@@ -32,6 +32,7 @@ const CustomTooltip = ({ active, payload, label }) => {
       </div>
     );
   }
+  return <div />;
 };
 
 const AnalyticsPieCartQuizResults = ({

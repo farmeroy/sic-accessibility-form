@@ -38,9 +38,8 @@ const DashboardView = async () => {
   const contacts = await getContacts().then((result) => result.data);
 
   return (
-    <div>
-      <h1>Analytics</h1>
-      <div className="w-full p-6 h-96 bg-offWhite">
+    <div className="p-2 ">
+      <div className="p-6 h-96 bg-offWhite">
         <h1>Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms</h1>
         <VisitorChart
           visits={visits}
@@ -49,7 +48,7 @@ const DashboardView = async () => {
         />
       </div>
 
-      <div className="w-full p-6 h-96 bg-offWhite">
+      <div className="w-full p-6 bg-offWhite">
         <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
       </div>
     </div>

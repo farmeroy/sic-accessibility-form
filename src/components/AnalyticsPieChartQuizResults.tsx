@@ -10,21 +10,34 @@ import {
   YAxis,
 } from "recharts";
 
-interface Item {
+interface ListItem {
   content: string;
   label: string;
   Answer: { answer: boolean }[];
 }
 
-interface Section {
+interface ISection {
   title: string;
-  items: Item[];
+  items: ListItem[];
 }
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="p-1 border bg-offWhite border-1">
+        <p>{`label : ${label}`}</p>
+        <p>{`content : ${payload[0].payload.content}`}</p>
+        <p>{`answered true: ${payload[0].payload.true}`}</p>
+        <p>{`answered false: ${payload[0].payload.false}`}</p>
+      </div>
+    );
+  }
+};
 
 const AnalyticsPieCartQuizResults = ({
   quizResult,
 }: {
-  quizResult: Section[];
+  quizResult: ISection[];
 }) => {
   const processedAnswers = quizResult.flatMap((section) => ({
     title: section.title,
@@ -37,20 +50,16 @@ const AnalyticsPieCartQuizResults = ({
   }));
 
   return (
-    <div className="flex h-96">
+    <div className="flex flex-wrap w-full md:flex-nowrap">
       {processedAnswers.map((section) => (
-        <div className="w-full max-w-4xl">
+        <div className="w-full">
           <h1>{section.title}</h1>
-          <ResponsiveContainer key={section.title} className="w-full ">
+          <ResponsiveContainer key={section.title} height={400} width="100%">
             <BarChart data={section.answers}>
-              <Tooltip
-                contentStyle={{
-                  zIndex: 3000,
-                }}
-              />
+              <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="true" fill="blue" />
               <Bar dataKey="false" fill="red" />
-              <XAxis dataKey="content" />
+              <XAxis dataKey="label" />
               <YAxis />
               <Legend />
             </BarChart>

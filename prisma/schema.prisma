@@ -7,6 +7,14 @@ datasource db {
   url      = env("DEV_DATABASE_URL")
 }
 
+model QuizFeedback {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid        String @unique @default(uuid())
+  maxValue    Int
+  description String // this string is a markdown string
+  nextSteps   String // this string is a markdown string
+}
+
 model QuizSection {
   id             String            @id @default(auto()) @map("_id") @db.ObjectId
   uuid           String            @unique @default(uuid())
@@ -97,11 +105,11 @@ model Session {
 }
 
 model User {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  email     String    @unique
-  name      String?
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  name          String?
   emailVerified DateTime?
-  lastLogin DateTime?
-  accounts  Account[]
-  sessions  Session[]
+  lastLogin     DateTime?
+  accounts      Account[]
+  sessions      Session[]
 }

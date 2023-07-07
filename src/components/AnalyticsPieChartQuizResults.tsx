@@ -53,8 +53,7 @@ const AnalyticsPieCartQuizResults = ({
   return (
     <div className="flex flex-wrap w-full md:flex-nowrap">
       {processedAnswers.map((section) => (
-        <div className="w-full">
-          <h1>{section.title}</h1>
+        <>
           <ResponsiveContainer key={section.title} height={400} width="100%">
             <BarChart data={section.answers}>
               <Tooltip content={<CustomTooltip />} />
@@ -65,7 +64,7 @@ const AnalyticsPieCartQuizResults = ({
               <Legend />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </>
       ))}
     </div>
   );

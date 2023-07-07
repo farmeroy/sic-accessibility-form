@@ -1,9 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const AdminPage = () => {
+  const { data: session } = useSession();
   const router = useRouter();
-  router.replace("/admin/analytics");
+  if (session && session.user) {
+    router.replace("/admin/analytics");
+  }
   return <div />;
 };
 

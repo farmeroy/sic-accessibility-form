@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { results } from "../lib/results.json";
 
 import ContactForm from "./ContactForm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -12,14 +11,35 @@ interface FinalScoreProps {
   quizSections: ISection[];
 }
 
+interface IFeedback {
+  maxValue: number;
+  description: string;
+  nextSteps: string;
+}
+
+const fetchFeedback = async () => {
+  try {
+    const response = await fetch(`/api/feedback`);
+    return response.json();
+  } catch (error) {
+    console.error({ error });
+  }
+};
+
 const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [feedback, setFeedback] = useState<null | IFeedback>(null);
 
-  const result = [...results]
-    // make sure the result values are ordered least to greatest
-    .sort((a, b) => a.maxValue - b.maxValue)
-    .find((item) => quizScore <= item.maxValue);
+  useEffect(() => {
+    fetchFeedback()
+      .then((response) =>
+        response.data
+          .sort((a, b) => a.maxValue - b.maxValue)
+          .find((item) => quizScore <= item.maxValue)
+      )
+      .then((result) => setFeedback(result));
+  }, [quizScore]);
 
   useEffect(() => {
     // https://stackoverflow.com/questions/68932621/put-a-warning-if-page-refresh-in-reactjs
@@ -39,7 +59,7 @@ const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, [isFormSubmitted]);
 
-  return (
+  return feedback ? (
     <div className="w-full bg-offWhite rounded-xl">
       <div className="md:flex bg-offWhite rounded-xl">
         <div
@@ -50,7 +70,9 @@ const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
           <p className="text-6xl">{quizScore}</p>
         </div>
         <div className="p-6 text-xl bg-offWhite rounded-xl">
-          <ReactMarkdown>{result?.description ?? ""}</ReactMarkdown>
+          <ReactMarkdown>
+            {feedback.description.replace(/\\n/g, "\n")}
+          </ReactMarkdown>
         </div>
       </div>
       <div className="p-6 bg-offWhite rounded-xl">
@@ -60,15 +82,15 @@ const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
           </h1>
           <ReactMarkdown
             components={{
-              ul: ({ node, ...props }) => (
+              ul: ({ ...props }) => (
                 <ul className="p-6 text-xl list-disc" {...props} />
               ),
-              a: ({ node, ...props }) => (
+              a: ({ ...props }) => (
                 <a className="underline text-accentBlue" {...props} />
               ),
             }}
           >
-            {result?.nextSteps ?? ""}
+            {feedback.nextSteps.replace(/\\n/g, "\n")}
           </ReactMarkdown>
         </div>
         {showContactForm ? (
@@ -123,6 +145,8 @@ const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
         )}
       </div>
     </div>
+  ) : (
+    <div />
   );
 };
 

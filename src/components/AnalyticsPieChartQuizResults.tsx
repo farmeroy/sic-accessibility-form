@@ -25,10 +25,21 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="p-1 border bg-offWhite border-1">
-        <p>{`label : ${label}`}</p>
-        <p>{`content : ${payload[0].payload.content}`}</p>
-        <p>{`answered true: ${payload[0].payload.true}`}</p>
-        <p>{`answered false: ${payload[0].payload.false}`}</p>
+        <p>
+          <span className="font-bold">label</span> : {label}
+        </p>
+        <p>
+          <span className="font-bold">content: </span>
+          {payload[0].payload.content}
+        </p>
+        <p className="text-accentBlue">
+          <span className="font-bold">answered true: </span>
+          {payload[0].payload.true}
+        </p>
+        <p className="text-accentOrange">
+          <span className="font-bold">answered false: </span>
+          {payload[0].payload.false}
+        </p>
       </div>
     );
   }
@@ -57,8 +68,8 @@ const AnalyticsPieCartQuizResults = ({
           <ResponsiveContainer key={section.title} height={400} width="100%">
             <BarChart data={section.answers}>
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="true" fill="blue" />
-              <Bar dataKey="false" fill="red" />
+              <Bar dataKey="true" fill="#080FA0" />
+              <Bar dataKey="false" fill="#FF6721" />
               <XAxis dataKey="label" />
               <YAxis />
               <Legend />

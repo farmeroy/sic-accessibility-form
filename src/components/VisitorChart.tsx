@@ -58,7 +58,6 @@ const VisitorChart = ({ visits, quizResults, contacts }) => {
     quizResults,
     contacts
   );
-
   return (
     <ResponsiveContainer className="w-full bg-offWhite ">
       <LineChart
@@ -71,7 +70,7 @@ const VisitorChart = ({ visits, quizResults, contacts }) => {
         <Tooltip />
         <Legend />
         <Line type="linear" dataKey="visitors" stroke="red" />
-        <Line type="linear" dataKey="completedQuizzes" stroke="black" />
+        <Line type="linear" dataKey="quizResultsCount" stroke="black" />
         <Line type="linear" dataKey="contactSubmitted" />
       </LineChart>
     </ResponsiveContainer>

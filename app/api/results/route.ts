@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-    revalidateTag("contacts");
+    revalidateTag("results");
     return NextResponse.json({ score });
   } catch (error) {
     console.error({ error });

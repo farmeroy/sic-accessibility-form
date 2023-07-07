@@ -13,12 +13,12 @@ export default function AdminNavBar() {
 
   if (session && session.user) {
     return (
-      <nav className="flex justify-between p-2">
-        <div className="p-2">
+      <nav className="flex items-center justify-between p-2">
+        <div className="p-2 text-accentBlue">
           <Link
             href="/admin/analytics"
             className={`p-2 ${
-              pathname?.includes("analytics") ? "text-white" : ""
+              pathname?.includes("analytics") ? " underline" : ""
             }`}
           >
             Analytics
@@ -26,15 +26,22 @@ export default function AdminNavBar() {
           <Link
             href="/admin/questions"
             className={`p-2 ${
-              pathname?.includes("questions") ? "text-white" : ""
+              pathname?.includes("questions") ? "underline" : ""
             }`}
           >
             Questions
           </Link>
         </div>
-        <div className="flex p-2">
-          <p className="mr-2">Signed in as {session.user.email}</p>
-          <button onClick={() => signOut()}>Sign out</button>
+        <div className="flex items-center p-2">
+          <p className="mr-2 text-accentBlue">
+            Signed in as {session.user.email}
+          </p>
+          <button
+            className="p-2 font-bold text-white rounded-lg hover:brightness-95 bg-accentOrange"
+            onClick={() => signOut()}
+          >
+            Sign out
+          </button>
         </div>
       </nav>
     );

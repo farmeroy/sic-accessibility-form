@@ -24,7 +24,7 @@ const getContacts = async () => {
   const res = await fetch("http://localhost:3000/api/contacts", {
     next: { tags: ["contacts"] },
   });
-  if (!res.ok) throw new Error("Failed to fetch results");
+  if (!res.ok) throw new Error("Failed to fetch contacts");
   return res.json();
 };
 
@@ -36,10 +36,10 @@ const DashboardView = async () => {
   const visits = await getVisits().then((result) => result.data);
   const quizResults = await getQuizResults().then((result) => result.data);
   const contacts = await getContacts().then((result) => result.data);
-
+  console.log(quizResults);
   return (
-    <div className="p-2 ">
-      <div className="p-6 h-96 bg-offWhite">
+    <div className="p-2 rounded-lg bg-offWhite">
+      <div className="p-6 h-96">
         <h1>Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms</h1>
         <VisitorChart
           visits={visits}

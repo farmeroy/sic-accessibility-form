@@ -38,7 +38,7 @@ const DashboardView = async () => {
   const contacts = await getContacts().then((result) => result.data);
   console.log(quizResults);
   return (
-    <div className="p-2 rounded-lg bg-offWhite">
+    <div className="p-2 rounded-b-lg rounded-r-lg bg-offWhite">
       <div className="p-6 h-96">
         <h1>Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms</h1>
         <VisitorChart

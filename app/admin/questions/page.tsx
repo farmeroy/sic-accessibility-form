@@ -5,7 +5,7 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 
 const getQuizData = async () => {
-  const res = await fetch("http://localhost:3000/api/questions", {
+  const res = await fetch(`${process.env.PROCESS_URL}/api/questions`, {
     next: { tags: ["questions"] },
   });
   if (!res.ok) throw new Error("Failed to fetch quiz");
@@ -22,10 +22,10 @@ const AdminQuizItemsView = async () => {
   );
 
   return (
-    <ul className="p-6 m-8 list-disc rounded-lg bg-offWhite">
+    <ul className="p-8 list-disc rounded-b-lg rounded-r-lg bg-offWhite">
       {quizSections.map((section) => (
         <li key={section.uuid}>
-          <h1>{section.title}</h1>
+          <h2>{section.title}</h2>
           <details>
             <summary className="hover:cursor-pointer">Section Items:</summary>
             <ol className="w-full p-4">

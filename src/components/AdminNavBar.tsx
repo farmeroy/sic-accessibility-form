@@ -13,8 +13,8 @@ export default function AdminNavBar() {
 
   if (session && session.user) {
     return (
-      <nav className="flex items-center justify-between p-2">
-        <div className="p-2 text-accentBlue">
+      <nav className="flex items-center justify-between sm:flex-wrap-reverse md:flex-row md:flex-nowrap">
+        <div className="p-4 rounded-t-lg bg-offWhite text-accentBlue">
           <Link
             href="/admin/analytics"
             className={`p-2 ${
@@ -31,8 +31,16 @@ export default function AdminNavBar() {
           >
             Questions
           </Link>
+          <Link
+            href="/admin/feedback"
+            className={`p-2 ${
+              pathname?.includes("feedback") ? "underline" : ""
+            }`}
+          >
+            Quiz Feedback
+          </Link>
         </div>
-        <div className="flex items-center p-2">
+        <div className="flex items-center justify-between p-2 sm:w-full md:w-fit">
           <p className="mr-2 text-accentBlue">
             Signed in as {session.user.email}
           </p>

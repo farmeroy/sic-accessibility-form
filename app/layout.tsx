@@ -7,14 +7,12 @@ export const metadata: Metadata = {
     "Assess your workplace accessibility for disabled and neurodiverse workers",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className="p-2 bg-brandOrange">{children}</body>
     </html>
   );
-}
+};
+
+export default RootLayout;

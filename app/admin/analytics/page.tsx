@@ -2,7 +2,7 @@ import AnalyticsPieCartQuizResults from "@/components/AnalyticsPieChartQuizResul
 import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 import VisitorChart from "@/components/VisitorChart";
 import { getServerSession } from "next-auth";
-import { authOptions } from "pages/api/auth/[...nextauth]";
+import { authOptions } from "@/lib/authOptions";
 
 const getVisits = async () => {
   const res = await fetch("http://localhost:3000/api/visits", {
@@ -36,7 +36,6 @@ const DashboardView = async () => {
   const visits = await getVisits().then((result) => result.data);
   const quizResults = await getQuizResults().then((result) => result.data);
   const contacts = await getContacts().then((result) => result.data);
-  console.log(quizResults);
   return (
     <div className="p-2 rounded-b-lg rounded-r-lg bg-offWhite">
       <div className="p-6 h-96">

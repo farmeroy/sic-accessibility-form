@@ -2,7 +2,6 @@
 
 import ModalWrapper from "./ModalWrapper";
 import { useState } from "react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 interface AdminDatabaseItemEditRowProps {
   label: string;
@@ -52,16 +51,7 @@ const AdminDatabaseItemEditRow = ({
         Edit
       </button>
       <h3 className="w-48 mr-2 font-bold">{label}:</h3>
-      <ReactMarkdown
-        className="w-full max-w-2xl p-2"
-        components={{
-          a: ({ ...props }) => (
-            <a className="underline text-accentBlue" {...props} />
-          ),
-        }}
-      >
-        {content.replace(/\\n/g, "\n")}
-      </ReactMarkdown>
+      <p className="w-full">"{content}"</p>
     </div>
   );
 };

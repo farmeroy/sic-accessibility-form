@@ -1,8 +1,8 @@
 import AdminQuestionView from "@/components/AdminQuestionView";
 import { ISection } from "src/interfaces";
 import { getServerSession } from "next-auth";
-import { authOptions } from "pages/api/auth/[...nextauth]";
 import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
+import { authOptions } from "@/lib/authOptions";
 
 const getQuizData = async () => {
   const res = await fetch(`${process.env.PROCESS_URL}/api/questions`, {

@@ -67,7 +67,16 @@ const AnalyticsPieCartQuizResults = ({
         <>
           <ResponsiveContainer key={section.title} height={400} width="100%">
             <BarChart data={section.answers}>
-              <Tooltip content={<CustomTooltip />} />
+              /* @ts-ignore */
+              <Tooltip
+                content={({ active, payload, label }) => (
+                  <CustomTooltip
+                    active={active}
+                    payload={payload}
+                    label={label}
+                  />
+                )}
+              />
               <Bar dataKey="true" fill="#080FA0" />
               <Bar dataKey="false" fill="#FF6721" />
               <XAxis dataKey="label" />

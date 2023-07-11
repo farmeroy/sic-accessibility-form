@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "pages/api/auth/[...nextauth]";
 import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import AdminDatabaseMarkdownEditRow from "@/components/AdminDatabaseMarkdownEditRow";
+import { authOptions } from "@/lib/authOptions";
 
 const getQuizFeedback = async () => {
   const res = await fetch(`${process.env.PROCESS_URL}/api/feedback`, {

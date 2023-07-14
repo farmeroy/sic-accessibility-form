@@ -39,7 +39,10 @@ const DashboardView = async () => {
   return (
     <div className="p-2 rounded-b-lg rounded-r-lg bg-offWhite">
       <div className="p-6 h-96">
-        <h1>Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms</h1>
+        <h2>
+          Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms for the
+          Past week
+        </h2>
         <VisitorChart
           visits={visits}
           quizResults={quizResults.quizzes}
@@ -48,6 +51,7 @@ const DashboardView = async () => {
       </div>
 
       <div className="w-full p-6 bg-offWhite">
+        <h2>Quiz Results from All Time</h2>
         <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
       </div>
     </div>

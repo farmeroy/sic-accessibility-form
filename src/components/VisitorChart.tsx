@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useState } from "react";
 
 interface IProcessedData {
   date: string;
@@ -17,18 +18,33 @@ interface IProcessedData {
   contactSubmitted: number;
 }
 
-function processDataForPreviousWeek(visitors, quizResults, contactSubmitted) {
+const calculateAllDays = () => {
+  const OLDEST_POSSIBLE_DATE = new Date("2023-07-01");
+  const today = new Date(Date.now());
+  const utc1 = Date.UTC(
+    OLDEST_POSSIBLE_DATE.getFullYear(),
+    OLDEST_POSSIBLE_DATE.getMonth(),
+    OLDEST_POSSIBLE_DATE.getDay()
+  );
+  const utc2 = Date.UTC(today.getFullYear(), today.getMonth(), today.getDay());
+  return Math.floor((utc2 - utc1) / (24 * 60 * 60 * 1000));
+};
+
+function processDataForPreviousWeek(
+  visitors,
+  quizResults,
+  contactSubmitted,
+  timeFrameOption
+) {
   const currentDate = new Date();
-  const startDateOfPreviousWeek = new Date(
-    currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
+  const startDate = new Date(
+    currentDate.getTime() - timeFrameOption * 24 * 60 * 60 * 1000
   );
 
   const processedData = [] as IProcessedData[];
 
-  for (let i = 0; i <= 7; i++) {
-    const currentDate = new Date(
-      startDateOfPreviousWeek.getTime() + i * 24 * 60 * 60 * 1000
-    );
+  for (let i = 0; i <= timeFrameOption; i++) {
+    const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
     const formattedDate = currentDate.toISOString().slice(0, 10);
 
     const visitorsCount = visitors.filter((entry) =>
@@ -53,27 +69,48 @@ function processDataForPreviousWeek(visitors, quizResults, contactSubmitted) {
 }
 
 const VisitorChart = ({ visits, quizResults, contacts }) => {
+  const timeFrameOptions = {
+    week: 7,
+    month: 30,
+    year: 365,
+    all_time: calculateAllDays(),
+  };
+  const [timeFrame, setTimeFrame] = useState(timeFrameOptions.week);
   const processedData = processDataForPreviousWeek(
     visits,
     quizResults,
-    contacts
+    contacts,
+    timeFrame
   );
   return (
-    <ResponsiveContainer className="w-full bg-offWhite ">
-      <LineChart
-        data={processedData}
-        margin={{ top: 10, right: 30, left: -20, bottom: 5 }}
+    <>
+      <label htmlFor="time-frame-select">View visitors for the previous:</label>
+      <select
+        className="m-2 rounded-lg"
+        name="time-frame"
+        id="time-frame-select"
+        onChange={(evt) => setTimeFrame(Number(evt.target.value))}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="linear" dataKey="visitors" stroke="red" />
-        <Line type="linear" dataKey="quizResultsCount" stroke="black" />
-        <Line type="linear" dataKey="contactSubmitted" />
-      </LineChart>
-    </ResponsiveContainer>
+        {Object.entries(timeFrameOptions).map(([entry, value]) => (
+          <option value={value}>{entry}</option>
+        ))}
+      </select>
+      <ResponsiveContainer className="bg-offWhite" height={400}>
+        <LineChart
+          data={processedData}
+          margin={{ top: 10, right: 30, left: -20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="linear" dataKey="visitors" stroke="red" />
+          <Line type="linear" dataKey="quizResultsCount" stroke="black" />
+          <Line type="linear" dataKey="contactSubmitted" />
+        </LineChart>
+      </ResponsiveContainer>
+    </>
   );
 };
 

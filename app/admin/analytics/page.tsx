@@ -37,11 +37,10 @@ const DashboardView = async () => {
   const quizResults = await getQuizResults().then((result) => result.data);
   const contacts = await getContacts().then((result) => result.data);
   return (
-    <div className="p-2 rounded-b-lg rounded-r-lg bg-offWhite">
-      <div className="p-6 h-96">
-        <h2>
-          Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms for the
-          Past week
+    <div className="p-2 mb-2 rounded-b-lg rounded-r-lg bg-offWhite">
+      <div className="p-6 m-4 border border-gray-400 rounded-lg">
+        <h2 className="text-center">
+          Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms
         </h2>
         <VisitorChart
           visits={visits}
@@ -49,9 +48,8 @@ const DashboardView = async () => {
           contacts={contacts}
         />
       </div>
-
-      <div className="w-full p-6 bg-offWhite">
-        <h2>Quiz Results from All Time</h2>
+      <div className="p-6 m-4 border border-gray-400 rounded-lg ">
+        <h2 className="p-2 text-center">Quiz Results</h2>
         <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
       </div>
     </div>

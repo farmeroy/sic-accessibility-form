@@ -2,6 +2,7 @@
 
 import {
   Bar,
+  Label,
   BarChart,
   Legend,
   ResponsiveContainer,
@@ -62,13 +63,11 @@ const AnalyticsPieCartQuizResults = ({
   }));
 
   return (
-    <div className="flex flex-wrap w-full md:flex-nowrap">
+    <div className="flex flex-wrap md:flex-nowrap mx-w-lg">
       {processedAnswers.map((section) => (
         <>
-          <h2 className="mx-auto">{section.title}</h2>
-          <ResponsiveContainer key={section.title} height={400} width="100%">
+          <ResponsiveContainer key={section.title} height={400}>
             <BarChart data={section.answers}>
-              /* @ts-ignore */
               <Tooltip
                 content={({ active, payload, label }) => (
                   <CustomTooltip
@@ -80,7 +79,9 @@ const AnalyticsPieCartQuizResults = ({
               />
               <Bar dataKey="true" fill="#080FA0" />
               <Bar dataKey="false" fill="#FF6721" />
-              <XAxis dataKey="label" />
+              <XAxis tick={false} dataKey="label">
+                <Label className="font-bold" value={section.title} />
+              </XAxis>
               <YAxis />
               <Legend />
             </BarChart>

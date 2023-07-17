@@ -18,15 +18,11 @@ interface IProcessedData {
   contactSubmitted: number;
 }
 
-const calculateAllDays = () => {
-  const OLDEST_POSSIBLE_DATE = new Date("2023-07-01");
-  const today = new Date(Date.now());
-  const utc1 = Date.UTC(
-    OLDEST_POSSIBLE_DATE.getFullYear(),
-    OLDEST_POSSIBLE_DATE.getMonth(),
-    OLDEST_POSSIBLE_DATE.getDay()
-  );
-  const utc2 = Date.UTC(today.getFullYear(), today.getMonth(), today.getDay());
+const OLDEST_POSSIBLE_DATE = new Date("2023-07-01");
+
+const getDifferenceInDays = (date1, date2) => {
+  const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDay());
+  const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDay());
   return Math.floor((utc2 - utc1) / (24 * 60 * 60 * 1000));
 };
 
@@ -73,7 +69,7 @@ const VisitorChart = ({ visits, quizResults, contacts }) => {
     week: 7,
     month: 30,
     year: 365,
-    all_time: calculateAllDays(),
+    all_time: getDifferenceInDays(OLDEST_POSSIBLE_DATE, new Date(Date.now())),
   };
   const [timeFrame, setTimeFrame] = useState(timeFrameOptions.week);
   const processedData = processDataForPreviousWeek(

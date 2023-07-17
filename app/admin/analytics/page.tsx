@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
 const getVisits = async () => {
-  const res = await fetch("http://localhost:3000/api/visits", {
+  const res = await fetch(`${process.env.PROCESS_URL}/api/visits`, {
     next: { tags: ["visits"] },
   });
   if (!res.ok) throw new Error("Failed to fetch visits");
@@ -13,7 +13,7 @@ const getVisits = async () => {
 };
 
 const getQuizResults = async () => {
-  const res = await fetch("http://localhost:3000/api/results", {
+  const res = await fetch(`${process.env.PROCESS_URL}/api/results`, {
     next: { tags: ["results"] },
   });
   if (!res.ok) throw new Error("Failed to fetch quiz results");
@@ -21,7 +21,7 @@ const getQuizResults = async () => {
 };
 
 const getContacts = async () => {
-  const res = await fetch("http://localhost:3000/api/contacts", {
+  const res = await fetch(`${process.env.PROCESS_URL}/api/contacts`, {
     next: { tags: ["contacts"] },
   });
   if (!res.ok) throw new Error("Failed to fetch contacts");

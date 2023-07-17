@@ -16,9 +16,14 @@ const textInputIsValid = (text: string) => {
 interface ContactFormProps {
   quizSections: ISection[];
   onFormSubmitted: () => void;
+  closeContactForm: () => void;
 }
 
-const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
+const ContactForm = ({
+  quizSections,
+  onFormSubmitted,
+  closeContactForm,
+}: ContactFormProps) => {
   const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
@@ -68,7 +73,7 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
       messageTouchHandler();
     }
     // if any field hasError do not submit the form
-    if (nameHasError || emailHasError || messageHasError) {
+    if (!nameIsValid || !emailIsValid || !messageIsValid) {
       setIsSending(false);
       return;
     }
@@ -151,6 +156,15 @@ const ContactForm = ({ quizSections, onFormSubmitted }: ContactFormProps) => {
           </button>
         </div>
       </form>
+      <button
+        disabled={isSending}
+        className={`w-full p-2 text-xl border border-black rounded-lg ${
+          isSending ? "text-gray-400" : ""
+        }`}
+        onClick={closeContactForm}
+      >
+        Cancel
+      </button>
     </div>
   );
 };

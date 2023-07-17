@@ -101,13 +101,8 @@ const FinalScore = ({ quizScore, quizSections }: FinalScoreProps) => {
                 setIsFormSubmitted(true);
                 setShowContactForm(false);
               }}
+              closeContactForm={() => setShowContactForm(false)}
             />
-            <button
-              className="w-full p-2 text-xl border border-black rounded-lg"
-              onClick={() => setShowContactForm(false)}
-            >
-              Cancel
-            </button>
           </div>
         ) : !isFormSubmitted ? (
           <button

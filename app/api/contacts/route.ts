@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import nodemailer from "nodemailer";
 import { ISection } from "src/interfaces";
+import { revalidateTag } from "next/cache";
 
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181
@@ -92,6 +93,8 @@ export async function POST(req: NextRequest) {
     } catch (e) {
       console.error({ e });
     }
+
+    revalidateTag("contacts");
 
     return new Response("Sent", {
       status: 200,

@@ -4,7 +4,15 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("DEV_DATABASE_URL")
+}
+
+model QuizFeedback {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid        String @unique @default(uuid())
+  maxValue    Int
+  description String // this string is a markdown string
+  nextSteps   String // this string is a markdown string
 }
 
 model QuizSection {
@@ -59,4 +67,49 @@ model ContactSubmitted {
   id   String   @id @default(auto()) @map("_id") @db.ObjectId
   uuid String   @default(uuid())
   date DateTime @default(now())
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id])
+  userId            String  @db.ObjectId
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @db.ObjectId
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  lastLogin     DateTime?
+  accounts      Account[]
+  sessions      Session[]
 }

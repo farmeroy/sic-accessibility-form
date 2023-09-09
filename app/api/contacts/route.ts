@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
     } catch (e) {
       console.error({ e });
     }
-
+    // tells next.js to refresh the cache
     revalidateTag("contacts");
 
     return new Response("Sent", {
@@ -113,6 +113,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
+  // update the ContactedSubmitted data
   try {
     const data = await prisma.contactSubmitted.findMany({
       select: {

@@ -30,7 +30,7 @@ const AdminQuestionView = ({ item }: AdminQuestionViewProps) => {
         }
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

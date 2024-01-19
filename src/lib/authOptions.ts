@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
         provider: { server, from },
       }) {
         const user = await prisma.user.findFirst({ where: { email } });
-        console.log({ user });
+        console.log("Login from user: ", { user });
         if (user) {
           const transport = createTransport(server);
           const { host } = new URL(url);

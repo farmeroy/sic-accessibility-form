@@ -3,6 +3,7 @@ import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 import VisitorChart from "@/components/VisitorChart";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import { Suspense } from "react";
 
 const getVisits = async () => {
   const res = await fetch(`${process.env.PROCESS_URL}/api/visits`, {
@@ -30,27 +31,37 @@ const getContacts = async () => {
 
 const DashboardView = async () => {
   const session = await getServerSession(authOptions);
-
   if (!session) return <UnauthorizedRedirect />;
 
-  const visits = await getVisits().then((result) => result.data);
-  const quizResults = await getQuizResults().then((result) => result.data);
-  const contacts = await getContacts().then((result) => result.data);
+  const visitsData = getVisits().then((result) => result.data);
+  const quizResultsData = getQuizResults().then((result) => result.data);
+  const contactsData = getContacts().then((result) => result.data);
+
+  const [visits, quizResults, contacts] = await Promise.all([
+    visitsData,
+    quizResultsData,
+    contactsData,
+  ]);
+
   return (
     <div className="p-2 mb-2 rounded-b-lg rounded-r-lg bg-offWhite">
       <div className="p-6 m-4 border border-gray-400 rounded-lg">
         <h2 className="text-center">
           Site Visits vs. Submitted Quizzes vs. Submitted Contact Forms
         </h2>
-        <VisitorChart
-          visits={visits}
-          quizResults={quizResults.quizzes}
-          contacts={contacts}
-        />
+        <Suspense fallback={<div>Loading visitor data...</div>}>
+          <VisitorChart
+            visits={visits}
+            quizResults={quizResults.quizzes}
+            contacts={contacts}
+          />
+        </Suspense>
       </div>
       <div className="p-6 m-4 border border-gray-400 rounded-lg ">
         <h2 className="p-2 text-center">Quiz Results</h2>
-        <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
+        <Suspense fallback={<div>Loading quiz results data...</div>}>
+          <AnalyticsPieCartQuizResults quizResult={quizResults.answers} />
+        </Suspense>
       </div>
     </div>
   );

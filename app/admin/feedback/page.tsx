@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import UnauthorizedRedirect from "@/components/UnauthorizedRedirect";
 import AdminDatabaseMarkdownEditRow from "@/components/AdminDatabaseMarkdownEditRow";
 import { authOptions } from "@/lib/authOptions";
+import { Suspense } from "react";
 
 const getQuizFeedback = async () => {
   const res = await fetch(`${process.env.PROCESS_URL}/api/feedback`, {
@@ -20,21 +21,25 @@ const AdminFeedbackItemsView = async () => {
 
   return (
     <ul className="p-8 list-disc rounded-b-lg rounded-r-lg bg-offWhite">
-      {quizFeedback.map((feedback) => (
-        <li key={feedback.uuid}>
-          <h2>Maximum Score: {feedback.maxValue}</h2>
-          <details className="p-2">
-            <summary className="hover:cursor-pointer">Feedback Summary</summary>
-            <AdminDatabaseMarkdownEditRow content={feedback.description} />
-          </details>
+      <Suspense fallback={<div>Loading quiz feedback data...</div>}>
+        {quizFeedback.map((feedback) => (
+          <li key={feedback.uuid}>
+            <h2>Maximum Score: {feedback.maxValue}</h2>
+            <details className="p-2">
+              <summary className="hover:cursor-pointer">
+                Feedback Summary
+              </summary>
+              <AdminDatabaseMarkdownEditRow content={feedback.description} />
+            </details>
 
-          <details className="p-2">
-            <summary className="hover:cursor-pointer">Next Steps</summary>
-            <AdminDatabaseMarkdownEditRow content={feedback.nextSteps} />
-          </details>
-          <hr />
-        </li>
-      ))}
+            <details className="p-2">
+              <summary className="hover:cursor-pointer">Next Steps</summary>
+              <AdminDatabaseMarkdownEditRow content={feedback.nextSteps} />
+            </details>
+            <hr />
+          </li>
+        ))}
+      </Suspense>
     </ul>
   );
 };

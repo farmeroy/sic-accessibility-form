@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import nodemailer from "nodemailer";
 import { ISection } from "src/interfaces";
 import { revalidateTag } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 const emailIsValid = (email: string) => {
   //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript#46181

@@ -6,6 +6,15 @@
 /.pnp
 .pnp.js
 
+# we want to ignore most of whats in yarn
+.yarn/*
+# but not these things
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # testing
 /coverage
 
